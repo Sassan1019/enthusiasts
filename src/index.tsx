@@ -62,8 +62,14 @@ app.get('/', (c) => {
       h1, h2, h3, h4, h5, h6 {
         font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
       }
+      .hero-bg {
+        background-image: url('/images/member-1.jpg');
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+      }
       .hero-gradient {
-        background: linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.7) 100%);
+        background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
       }
       .fade-in {
         animation: fadeIn 1.2s ease-in;
@@ -75,12 +81,35 @@ app.get('/', (c) => {
       .smooth-scroll {
         scroll-behavior: smooth;
       }
+      .member-card {
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+      .member-card:hover {
+        transform: translateY(-8px);
+        box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      }
     </style>
 </head>
 <body class="bg-white text-gray-900 smooth-scroll">
     
+    <!-- Header -->
+    <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="/images/logo.png" alt="Enthusiasts" class="h-10 w-auto">
+                <span class="text-xl font-bold">Enthusiasts</span>
+            </a>
+            <nav class="hidden md:flex space-x-8">
+                <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
+                <a href="#what-we-do" class="text-gray-700 hover:text-black transition-colors">What We Do</a>
+                <a href="#member" class="text-gray-700 hover:text-black transition-colors">Member</a>
+                <a href="#blog" class="text-gray-700 hover:text-black transition-colors">Blog</a>
+            </nav>
+        </div>
+    </header>
+    
     <!-- Hero Section -->
-    <section class="relative h-screen flex items-center justify-center bg-black">
+    <section class="relative h-screen flex items-center justify-center hero-bg">
         <div class="hero-gradient absolute inset-0"></div>
         <div class="relative z-10 text-center text-white px-6 max-w-5xl fade-in">
             <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
@@ -174,17 +203,99 @@ app.get('/', (c) => {
 
     <!-- Member Section -->
     <section id="member" class="py-32 px-6 bg-gray-50">
-        <div class="max-w-4xl mx-auto text-center">
-            <h2 class="text-4xl md:text-5xl font-bold mb-12">Member</h2>
-            <p class="text-xl text-gray-600">エンスーな人々</p>
-            <p class="text-gray-500 mt-8">Coming soon...</p>
+        <div class="max-w-6xl mx-auto">
+            <h2 class="text-4xl md:text-5xl font-bold text-center mb-8">Member</h2>
+            <p class="text-xl text-center text-gray-600 mb-16">エンスーな人々</p>
+            
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Member 1 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm">
+                    <img src="/images/member-1.jpg" alt="メンバー1" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">サトシ</h3>
+                        <p class="text-gray-600 text-sm mb-3">Founder / Project Lead</p>
+                        <p class="text-gray-700 text-sm">才能の覚醒をサポートし、人々の可能性を最大化することに情熱を注ぐ。</p>
+                    </div>
+                </div>
+
+                <!-- Member 2 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm">
+                    <img src="/images/member-2.jpg" alt="メンバー2" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">ケンタ</h3>
+                        <p class="text-gray-600 text-sm mb-3">Community Manager</p>
+                        <p class="text-gray-700 text-sm">人と人を繋ぎ、化学反応を起こすコミュニティづくりのスペシャリスト。</p>
+                    </div>
+                </div>
+
+                <!-- Member 3 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm">
+                    <img src="/images/member-3.jpg" alt="メンバー3" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">アヤカ</h3>
+                        <p class="text-gray-600 text-sm mb-3">Event Coordinator</p>
+                        <p class="text-gray-700 text-sm">才能が交わる場を創り、新しい出会いと学びの機会を提供する。</p>
+                    </div>
+                </div>
+
+                <!-- Member 4 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm">
+                    <img src="/images/member-4.jpg" alt="メンバー4" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">ユウキ</h3>
+                        <p class="text-gray-600 text-sm mb-3">Creative Director</p>
+                        <p class="text-gray-700 text-sm">音楽とアートを通じて、人々の才能を表現する舞台を創る。</p>
+                    </div>
+                </div>
+
+                <!-- Member 5 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm">
+                    <img src="/images/member-5.jpg" alt="メンバー5" class="w-full h-64 object-cover">
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">リョウ</h3>
+                        <p class="text-gray-600 text-sm mb-3">Strategic Advisor</p>
+                        <p class="text-gray-700 text-sm">一人ひとりの才能を戦略的に育て、実現可能な形にサポートする。</p>
+                    </div>
+                </div>
+
+                <!-- Future Member Card -->
+                <div class="member-card bg-white overflow-hidden shadow-sm border-2 border-dashed border-gray-300">
+                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
+                        <div class="text-center">
+                            <p class="text-4xl text-gray-300 mb-4">?</p>
+                            <p class="text-gray-500 font-medium">Next is You</p>
+                        </div>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2">あなた</h3>
+                        <p class="text-gray-600 text-sm mb-3">Your Role</p>
+                        <p class="text-gray-700 text-sm">才能を覚醒させる旅に、あなたも参加しませんか?</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 px-6 bg-black text-white text-center">
-        <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
-        <p class="text-sm text-gray-400">&copy; 2024 All rights reserved.</p>
+    <footer class="py-16 px-6 bg-black text-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="flex items-center space-x-3 mb-6 md:mb-0">
+                    <img src="/images/logo.png" alt="Enthusiasts" class="h-8 w-auto filter brightness-0 invert">
+                    <span class="text-xl font-bold">Enthusiasts</span>
+                </div>
+                <nav class="flex space-x-8">
+                    <a href="#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
+                    <a href="#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
+                    <a href="#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                </nav>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
@@ -255,8 +366,12 @@ app.get('/blog/:slug', async (c) => {
 </head>
 <body class="bg-white text-gray-900">
     
-    <header class="py-6 px-6 border-b">
-        <div class="max-w-4xl mx-auto">
+    <header class="py-6 px-6 border-b bg-white">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="/" class="flex items-center space-x-3">
+                <img src="/images/logo.png" alt="Enthusiasts" class="h-8 w-auto">
+                <span class="text-lg font-bold">Enthusiasts</span>
+            </a>
             <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
         </div>
     </header>
@@ -267,9 +382,25 @@ app.get('/blog/:slug', async (c) => {
         </div>
     </article>
 
-    <footer class="py-16 px-6 bg-black text-white text-center mt-32">
-        <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
-        <p class="text-sm text-gray-400">&copy; 2024 All rights reserved.</p>
+    <footer class="py-16 px-6 bg-black text-white mt-32">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <div class="flex items-center space-x-3 mb-6 md:mb-0">
+                    <img src="/images/logo.png" alt="Enthusiasts" class="h-8 w-auto filter brightness-0 invert">
+                    <span class="text-xl font-bold">Enthusiasts</span>
+                </div>
+                <nav class="flex space-x-8">
+                    <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
+                    <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
+                    <a href="/#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                </nav>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+            </div>
+        </div>
     </footer>
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
