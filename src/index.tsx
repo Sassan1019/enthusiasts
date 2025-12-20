@@ -240,7 +240,7 @@ app.get('/', (c) => {
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Member 1: 佐々木 慧 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
-                    <img src="/images/member-1.jpg" alt="佐々木 慧" class="w-full h-64 object-cover">
+                    <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">PROJECT LEADER</div>
                         <h3 class="text-2xl font-bold mb-2">佐々木 慧</h3>
@@ -257,7 +257,7 @@ app.get('/', (c) => {
 
                 <!-- Member 2: 布野 雅也 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
-                    <img src="/images/member-2.jpg" alt="布野 雅也" class="w-full h-64 object-cover">
+                    <img src="/images/member-1.jpg" alt="布野 雅也" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">布野 雅也</h3>
