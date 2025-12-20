@@ -248,27 +248,6 @@ app.get('/', (c) => {
         </div>
     </section>
 
-    <!-- Featured Articles Slideshow -->
-    <section class="py-24 px-6 bg-gray-50">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">FEATURED ARTICLES</h2>
-                <p class="text-lg md:text-xl text-gray-600">注目記事</p>
-            </div>
-            
-            <div class="slideshow-container relative">
-                <div id="slideshow-content" class="min-h-[500px]">
-                    <!-- Slides will be loaded here -->
-                </div>
-                
-                <!-- Dots Navigation -->
-                <div id="slideshow-dots" class="flex justify-center gap-3 mt-8">
-                    <!-- Dots will be loaded here -->
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Philosophy Section -->
     <section id="philosophy" class="py-32 px-6 bg-white">
         <div class="max-w-5xl mx-auto">
@@ -350,6 +329,25 @@ app.get('/', (c) => {
             <div class="text-center mb-20">
                 <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">BLOG</h2>
                 <p class="text-xl md:text-2xl text-gray-600">ブログ</p>
+            </div>
+            
+            <!-- Slideshow -->
+            <div class="mb-16">
+                <div class="slideshow-container relative">
+                    <div id="slideshow-content" class="min-h-[500px]">
+                        <!-- Slides will be loaded here -->
+                    </div>
+                    
+                    <!-- Dots Navigation -->
+                    <div id="slideshow-dots" class="flex justify-center gap-3 mt-8">
+                        <!-- Dots will be loaded here -->
+                    </div>
+                </div>
+            </div>
+            
+            <!-- All Blog Posts -->
+            <div class="mb-12">
+                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center">すべての記事</h3>
             </div>
             
             <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
