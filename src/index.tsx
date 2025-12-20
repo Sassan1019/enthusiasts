@@ -110,9 +110,9 @@ app.get('/', (c) => {
     
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
             <a href="/" class="flex items-center">
-                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-12 w-auto">
+                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-16 md:h-20 w-auto">
             </a>
             <nav class="hidden md:flex space-x-8">
                 <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
@@ -583,7 +583,7 @@ app.get('/blog/:slug', async (c) => {
     <header class="py-4 px-6 border-b bg-white">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <a href="/" class="flex items-center">
-                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-10 w-auto">
+                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-12 md:h-14 w-auto">
             </a>
             <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
         </div>
