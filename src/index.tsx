@@ -18,13 +18,84 @@ app.get('/api/posts', async (c) => {
   const { DB } = c.env
   
   const { results } = await DB.prepare(`
-    SELECT id, title, slug, excerpt, created_at, updated_at
+    SELECT id, title, slug, excerpt, created_at, updated_at, source, external_url, thumbnail_url
     FROM posts
     WHERE published = 1
     ORDER BY created_at DESC
   `).all()
   
   return c.json({ posts: results })
+})
+
+// API: Sync note articles
+app.post('/api/sync-note', async (c) => {
+  const { DB } = c.env
+  
+  try {
+    // Fetch RSS feed from note
+    const response = await fetch('https://note.com/sasaki1019/rss')
+    const rssText = await response.text()
+    
+    // Parse RSS XML (simple parsing)
+    const items = rssText.match(/<item>[\s\S]*?<\/item>/g) || []
+    
+    let syncedCount = 0
+    
+    for (const item of items) {
+      // Extract data using regex
+      const titleMatch = item.match(/<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/title>/)
+      const title = titleMatch ? titleMatch[1].replace(/<!\[CDATA\[|\]\]>/g, '') : 'Untitled'
+      const link = item.match(/<link>(.*?)<\/link>/)?.[1] || ''
+      const description = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] || ''
+      const thumbnail = item.match(/<media:thumbnail>(.*?)<\/media:thumbnail>/)?.[1] || ''
+      const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || ''
+      
+      // Extract slug from URL (e.g., /n/nfce73c56011a -> nfce73c56011a)
+      const slugMatch = link.match(/\/n\/([a-zA-Z0-9]+)/)
+      const slug = slugMatch ? `note-${slugMatch[1]}` : `note-${Date.now()}`
+      
+      // Extract plain text excerpt from description
+      const excerpt = description
+        .replace(/<[^>]+>/g, '') // Remove HTML tags
+        .replace(/&nbsp;/g, ' ')
+        .substring(0, 200)
+      
+      // Check if article already exists
+      const existing = await DB.prepare(`
+        SELECT id FROM posts WHERE slug = ?
+      `).bind(slug).first()
+      
+      if (!existing) {
+        // Insert new article
+        await DB.prepare(`
+          INSERT INTO posts (title, slug, content, excerpt, published, source, external_url, thumbnail_url, created_at, updated_at)
+          VALUES (?, ?, ?, ?, 1, 'note', ?, ?, datetime('now'), datetime('now'))
+        `).bind(
+          title,
+          slug,
+          description,
+          excerpt,
+          link,
+          thumbnail
+        ).run()
+        
+        syncedCount++
+      }
+    }
+    
+    return c.json({ 
+      success: true, 
+      message: `Synced ${syncedCount} new articles from note`,
+      total: items.length 
+    })
+    
+  } catch (error) {
+    console.error('Error syncing note:', error)
+    return c.json({ 
+      success: false, 
+      error: 'Failed to sync note articles' 
+    }, 500)
+  }
 })
 
 // API: Get single post by slug
@@ -556,13 +627,25 @@ app.get('/', (c) => {
             return
           }
           
-          blogContainer.innerHTML = posts.map(post => \`
-            <a href="/blog/\${post.slug}" class="block bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-              <h3 class="text-xl font-bold mb-3">\${post.title}</h3>
-              <p class="text-gray-600 mb-4">\${post.excerpt || ''}</p>
-              <p class="text-sm text-gray-400">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
-            </a>
-          \`).join('')
+          blogContainer.innerHTML = posts.map(post => {
+            const isNote = post.source === 'note'
+            const href = isNote ? post.external_url : \`/blog/\${post.slug}\`
+            const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
+            
+            return \`
+              <a href="\${href}" \${target} class="block bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow rounded-lg">
+                \${post.thumbnail_url ? \`
+                  <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-48 object-cover">
+                \` : ''}
+                <div class="p-6">
+                  \${isNote ? '<span class="inline-block bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded mb-2">note</span>' : ''}
+                  <h3 class="text-xl font-bold mb-3">\${post.title}</h3>
+                  <p class="text-gray-600 mb-4">\${post.excerpt || ''}</p>
+                  <p class="text-sm text-gray-400">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
+                </div>
+              </a>
+            \`
+          }).join('')
         } catch (error) {
           console.error('Failed to load blog posts:', error)
         }
