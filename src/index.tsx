@@ -232,53 +232,88 @@ app.get('/', (c) => {
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <!-- Member 1 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm">
-                    <img src="/images/member-1.jpg" alt="メンバー1" class="w-full h-64 object-cover">
+                <!-- Member 1: 佐々木 慧 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                    <img src="/images/member-1.jpg" alt="佐々木 慧" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">サトシ</h3>
-                        <p class="text-gray-600 text-sm mb-3">Founder / Project Lead</p>
-                        <p class="text-gray-700 text-sm">才能の覚醒をサポートし、人々の可能性を最大化することに情熱を注ぐ。</p>
+                        <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">PROJECT LEADER</div>
+                        <h3 class="text-2xl font-bold mb-2">佐々木 慧</h3>
+                        <p class="text-sm text-gray-500 mb-4">理念: 原石に光を</p>
+                        <div class="mb-4">
+                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
+                            <p class="text-xs text-gray-600">ファイナンス・経営戦略・プロデュース・考察</p>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            元日本一のレーサーを父に持つ元レーサー。夢を失った虚無感から一念発起し、IT業界での成功を目指し上京。用意された成功に違和感を覚え、すべての内定を辞退。現在は、出逢った人の才能の機会損失をゼロにするプロジェクトをリード。
+                        </p>
                     </div>
                 </div>
 
-                <!-- Member 2 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm">
-                    <img src="/images/member-2.jpg" alt="メンバー2" class="w-full h-64 object-cover">
+                <!-- Member 2: 布野 雅也 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                    <img src="/images/member-2.jpg" alt="布野 雅也" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">ケンタ</h3>
-                        <p class="text-gray-600 text-sm mb-3">Community Manager</p>
-                        <p class="text-gray-700 text-sm">人と人を繋ぎ、化学反応を起こすコミュニティづくりのスペシャリスト。</p>
+                        <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
+                        <h3 class="text-2xl font-bold mb-2">布野 雅也</h3>
+                        <p class="text-sm text-gray-500 mb-4">理念: Find Your Why .</p>
+                        <div class="mb-4">
+                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
+                            <p class="text-xs text-gray-600">マーケティング・PR・プロデュース</p>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            ビジョンは「今を生きる人があふれる世界」。マーケティングとPRの専門性を活かし、プロジェクトの価値を社会に届けるコアメンバー。
+                        </p>
                     </div>
                 </div>
 
-                <!-- Member 3 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm">
-                    <img src="/images/member-3.jpg" alt="メンバー3" class="w-full h-64 object-cover">
+                <!-- Member 3: 黒岩 礼生 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                    <img src="/images/member-5.jpg" alt="黒岩 礼生" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">アヤカ</h3>
-                        <p class="text-gray-600 text-sm mb-3">Event Coordinator</p>
-                        <p class="text-gray-700 text-sm">才能が交わる場を創り、新しい出会いと学びの機会を提供する。</p>
+                        <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
+                        <h3 class="text-2xl font-bold mb-2">黒岩 礼生</h3>
+                        <p class="text-sm text-gray-500 mb-4">理念: 人々に眠る愛おしさを照らし出す</p>
+                        <div class="mb-4">
+                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
+                            <p class="text-xs text-gray-600">シークレット</p>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            幼少期からの苦悩を経て、食・健康・自己受容をテーマにコーチングを展開。「すみません」ではなく「ありがとう」が飛び交う日本を目指し、自立したGiver同士が愛し合う世界の実現に挑戦中。
+                        </p>
                     </div>
                 </div>
 
-                <!-- Member 4 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm">
-                    <img src="/images/member-4.jpg" alt="メンバー4" class="w-full h-64 object-cover">
+                <!-- Member 4: 甘糟 里奈 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                    <img src="/images/member-3.jpg" alt="甘糟 里奈" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">ユウキ</h3>
-                        <p class="text-gray-600 text-sm mb-3">Creative Director</p>
-                        <p class="text-gray-700 text-sm">音楽とアートを通じて、人々の才能を表現する舞台を創る。</p>
+                        <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
+                        <h3 class="text-2xl font-bold mb-2">甘糟 里奈</h3>
+                        <p class="text-sm text-gray-500 mb-4">理念: 感性で世界を彩る</p>
+                        <div class="mb-4">
+                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
+                            <p class="text-xs text-gray-600">PR</p>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            3000冊以上の物語から独自の感性を磨いた。転落を経て佐々木との出逢いで再起。栃木県さくら市の地域おこし協力隊として、地域の魅力をアートへと昇華させ、新たな熱狂を生み出している。
+                        </p>
                     </div>
                 </div>
 
-                <!-- Member 5 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm">
-                    <img src="/images/member-5.jpg" alt="メンバー5" class="w-full h-64 object-cover">
+                <!-- Member 5: 當内 脩平 -->
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                    <img src="/images/member-4.jpg" alt="當内 脩平" class="w-full h-64 object-cover">
                     <div class="p-6">
-                        <h3 class="text-xl font-bold mb-2">リョウ</h3>
-                        <p class="text-gray-600 text-sm mb-3">Strategic Advisor</p>
-                        <p class="text-gray-700 text-sm">一人ひとりの才能を戦略的に育て、実現可能な形にサポートする。</p>
+                        <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
+                        <h3 class="text-2xl font-bold mb-2">當内 脩平</h3>
+                        <p class="text-sm text-gray-500 mb-4">理念: Make Your Rock</p>
+                        <div class="mb-4">
+                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
+                            <p class="text-xs text-gray-600">PR・イベントプロデュース</p>
+                        </div>
+                        <p class="text-sm text-gray-700 leading-relaxed">
+                            二度の不登校を経験し、Rockに救われた。大阪天王寺で音楽フェス「STAR'Z DASH!!」を主催。衝動と脆さが響き合う世界を現実にすべく、音楽と経営の二軸で行き場のない若者たちの道を切り拓く。
+                        </p>
                     </div>
                 </div>
 
