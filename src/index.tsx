@@ -116,6 +116,37 @@ app.get('/api/posts/:slug', async (c) => {
   return c.json({ post: result })
 })
 
+// API: Submit contact form
+app.post('/api/contact', async (c) => {
+  const { DB } = c.env
+  
+  try {
+    const { name, email, subject, message } = await c.req.json()
+    
+    // Validation
+    if (!name || !email || !message) {
+      return c.json({ error: 'Required fields are missing' }, 400)
+    }
+    
+    // Insert contact into database
+    await DB.prepare(`
+      INSERT INTO contacts (name, email, subject, message, status, created_at, updated_at)
+      VALUES (?, ?, ?, ?, 'new', datetime('now'), datetime('now'))
+    `).bind(name, email, subject || '', message).run()
+    
+    return c.json({ 
+      success: true,
+      message: 'Contact form submitted successfully' 
+    })
+    
+  } catch (error) {
+    console.error('Error submitting contact:', error)
+    return c.json({ 
+      error: 'Failed to submit contact form' 
+    }, 500)
+  }
+})
+
 // Home page
 app.get('/', (c) => {
   return c.html(`
@@ -555,6 +586,9 @@ app.get('/', (c) => {
             </div>
             <div class="border-t border-gray-800 pt-8 text-center">
                 <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400 mb-2">
+                    <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
+                </p>
                 <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
@@ -920,17 +954,50 @@ app.get('/contact', (c) => {
                 <p class="text-base md:text-lg text-gray-600">お問い合わせ</p>
             </div>
             
-            <div class="bg-white rounded-lg">
+            <div class="bg-white rounded-lg border border-gray-200 p-8">
                 <p class="text-gray-700 mb-8 text-center">
                     ご質問やご相談など、お気軽にお問い合わせください。
                 </p>
                 
-                <!-- HubSpot Form iframe -->
-                <iframe 
-                    src="https://share.hsforms.com/1n1pvJnMaT9q5XYEYnL7Txwczmoh" 
-                    class="hubspot-iframe"
-                    title="お問い合わせフォーム">
-                </iframe>
+                <!-- Contact Form -->
+                <form id="contact-form" class="space-y-6">
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 mb-2">お名前 <span class="text-red-500">*</span></label>
+                        <input type="text" id="name" name="name" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 mb-2">メールアドレス <span class="text-red-500">*</span></label>
+                        <input type="email" id="email" name="email" required 
+                               class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label for="subject" class="block text-sm font-medium text-gray-700 mb-2">件名</label>
+                        <input type="text" id="subject" name="subject" 
+                               class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all">
+                    </div>
+                    
+                    <div>
+                        <label for="message" class="block text-sm font-medium text-gray-700 mb-2">お問い合わせ内容 <span class="text-red-500">*</span></label>
+                        <textarea id="message" name="message" required rows="6"
+                                  class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none transition-all resize-none"></textarea>
+                    </div>
+                    
+                    <div class="text-xs text-gray-600">
+                        <p>お送りいただいた個人情報は、<a href="/privacy" class="text-gray-900 hover:underline">プライバシーポリシー</a>に基づき適切に管理いたします。</p>
+                    </div>
+                    
+                    <div>
+                        <button type="submit" id="submit-btn"
+                                class="w-full bg-gray-900 text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors font-medium">
+                            送信する
+                        </button>
+                    </div>
+                    
+                    <div id="form-message" class="hidden mt-4 p-4 rounded"></div>
+                </form>
             </div>
         </div>
     </section>
@@ -952,6 +1019,158 @@ app.get('/contact', (c) => {
             </div>
             <div class="border-t border-gray-800 pt-8 text-center">
                 <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400 mb-2">
+                    <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
+                </p>
+                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script>
+      document.getElementById('contact-form').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        
+        const submitBtn = document.getElementById('submit-btn')
+        const formMessage = document.getElementById('form-message')
+        
+        submitBtn.disabled = true
+        submitBtn.textContent = '送信中...'
+        
+        const formData = {
+          name: document.getElementById('name').value,
+          email: document.getElementById('email').value,
+          subject: document.getElementById('subject').value,
+          message: document.getElementById('message').value
+        }
+        
+        try {
+          const response = await axios.post('/api/contact', formData)
+          
+          formMessage.classList.remove('hidden', 'bg-red-50', 'text-red-700')
+          formMessage.classList.add('bg-green-50', 'text-green-700')
+          formMessage.textContent = 'お問い合わせを受け付けました。ご連絡ありがとうございます。'
+          
+          document.getElementById('contact-form').reset()
+          
+          setTimeout(() => {
+            formMessage.classList.add('hidden')
+          }, 5000)
+          
+        } catch (error) {
+          formMessage.classList.remove('hidden', 'bg-green-50', 'text-green-700')
+          formMessage.classList.add('bg-red-50', 'text-red-700')
+          formMessage.textContent = '送信に失敗しました。もう一度お試しください。'
+        } finally {
+          submitBtn.disabled = false
+          submitBtn.textContent = '送信する'
+        }
+      })
+    </script>
+</body>
+</html>
+  `)
+})
+
+// Privacy Policy page
+app.get('/privacy', (c) => {
+  return c.html(`
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>プライバシーポリシー | 才能を覚醒させる</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    
+    <!-- Header -->
+    <header class="py-4 px-6 border-b bg-white">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="/" class="flex items-center">
+                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-10 md:h-12 w-auto">
+            </a>
+            <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
+        </div>
+    </header>
+
+    <!-- Privacy Policy Content -->
+    <article class="py-16 px-6">
+        <div class="max-w-4xl mx-auto">
+            <h1 class="text-3xl md:text-4xl font-bold mb-8 tracking-tight">プライバシーポリシー</h1>
+            
+            <div class="prose max-w-none">
+                <p class="mb-8 leading-relaxed">エンスージアスツ（以下「当団体」といいます。）は、当団体の運営する事業において当団体が取得する個人情報につき、その取扱い及び管理に関する指針として、本プライバシーポリシー（以下「本ポリシー」といいます。）を定めております。</p>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">個人情報</h2>
+                <p class="mb-6 leading-relaxed">本ポリシーにおいて、「個人情報」とは、個人情報の保護に関する法律（以下「個人情報保護法」といいます。）で定義された「個人情報」をいい、生存する個人に関する情報（個人の氏名、生年月日、住所、電話番号及び連絡先情報を含む。）及び特定の個人を識別可能なその他の記述若しくは情報（個人の外見や声又はその他の種類の個人を識別可能な情報）を意味します。</p>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">個人情報の利用目的</h2>
+                <p class="mb-4 leading-relaxed">当団体は、以下の目的（以下「本目的」といいます。）のために個人情報を取得し、利用します。</p>
+                <ul class="list-disc pl-6 mb-6 space-y-2 leading-relaxed">
+                    <li>当団体が運営する事業におけるサービス提供、利用手続き、健康管理、その他各管理運営業務の実施のため</li>
+                    <li>当団体が運営する事業の円滑な運営、安全管理、緊急対応のため</li>
+                    <li>当団体が運営するイベントに関する告知等各種連絡のため</li>
+                    <li>当団体が実施するアンケートや広報資料作成、取得のため</li>
+                    <li>当団体への採用応募者の採否の検討、決定及びその記録のため</li>
+                </ul>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">第三者提供</h2>
+                <p class="mb-6 leading-relaxed">当団体は、法令により許容される場合又は要求される場合を除き、本人の事前の承諾なしに本人の個人情報を第三者に提供しません。</p>
+                <p class="mb-6 leading-relaxed">当団体は、個人情報保護法に従って、当団体の業務の実施、本事業の実施及び本目的の達成のために、本人の個人情報の処理を第三者に委託する場合があります。この場合当団体は、本人の個人情報の処理のために必要な範囲で、本人の個人情報を提供し、当該委託先が本人の個人情報を法令に従って処理するよう監督します。本人の個人情報を処理する委託先は、受領した個人情報を当団体が指示した目的以外に用いることはできません。</p>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">本人の個人情報の開示、訂正又は削除の要請</h2>
+                <h3 class="text-xl font-semibold mt-8 mb-3">（1）情報の開示</h3>
+                <p class="mb-6 leading-relaxed">当団体が本人から個人情報の開示の請求を受けた場合、当団体は、ご請求にお応えする前に、本人確認をします。本人確認後、当団体は個人情報保護法に従って本人からの請求につき審査いたします。当団体が、請求された情報を開示できない又は開示しない旨を決定した場合は、その旨を通知いたします。</p>
+                
+                <h3 class="text-xl font-semibold mt-8 mb-3">（2）情報の訂正及び削除</h3>
+                <p class="mb-6 leading-relaxed">本人が、当団体に提出した自らの個人情報の一部が不正確であることに気付いた場合は、可能な限り速やかに当該誤りを修正するものとします。当団体は、受領した全てのリクエストについて精査し、情報の修正が必要と判断した場合は、該当する個人情報の修正を行います。また、情報の修正が不要又は不当と判断した場合は、当該決定について本人にご連絡します。</p>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">当団体の保存期間</h2>
+                <p class="mb-6 leading-relaxed">当団体は、本ポリシーに定める本目的の遂行に必要な期間、本人の個人情報を保持し、これに加えて、法令又は当団体の規則に照らして本人の個人情報を保持するべき義務がある限度で、更に本人の個人情報を保持します。</p>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">データセキュリティ</h2>
+                <p class="mb-6 leading-relaxed">当団体は、当団体が収集する情報の送信及び保管を適切に保護するため、技術的、物理的かつ組織的な各種対策及び管理を実施しています。当団体は、本人の個人情報について、その重要性や要保護性に応じて合理的な保護を講じるものとします。当団体は、当団体が管理する本人の個人情報を不正アクセスの脅威から保護するため、合理的なセキュリティ対策を講じる努力をし、個人情報の漏洩、紛失又は損傷の防止に努めるものとします。万が一、個人情報の漏洩又はその他のセキュリティインシデントが発生した場合、当団体は、直ちに本人に通知し、関連法令で定められた手続きに従って必要な措置を講じます。</p>
+                
+                <h2 class="text-2xl font-bold mt-12 mb-4">本ポリシーの変更</h2>
+                <p class="mb-6 leading-relaxed">当団体は、時期を問わず、また理由の如何によらず、当団体の単独の裁量で本ポリシーを更新することがあります。当団体は、本ポリシーを変更するときは、本人に対して改訂の内容について、改訂の効力発生日に先立ち、合理的な内容で事前通知を行います。また、改訂後の本ポリシーは、当団体のウェブサイトに掲示され、その効力発生日に有効になります。</p>
+            </div>
+        </div>
+    </article>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 bg-black text-white mt-32">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center mb-12">
+                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <nav class="flex space-x-8 mb-6 md:mb-0">
+                    <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
+                    <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
+                    <a href="/#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                    <a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </nav>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400 mb-2">
+                    <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
+                </p>
                 <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
@@ -1025,6 +1244,9 @@ app.get('/blog/:slug', async (c) => {
             </div>
             <div class="border-t border-gray-800 pt-8 text-center">
                 <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400 mb-2">
+                    <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
+                </p>
                 <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
