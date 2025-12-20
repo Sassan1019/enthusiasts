@@ -375,13 +375,25 @@ app.get('/', (c) => {
                 </div>
             </div>
             
-            <!-- All Blog Posts -->
-            <div class="mb-6">
-                <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-700">すべての記事</h3>
+            <!-- Show More Button -->
+            <div class="text-center mb-8">
+                <button id="show-more-btn" onclick="toggleAllPosts()" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded transition-all">
+                    <span id="show-more-text">もっと見る</span>
+                    <svg id="show-more-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                    </svg>
+                </button>
             </div>
             
-            <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Blog posts will be loaded here -->
+            <!-- All Blog Posts (Hidden by default) -->
+            <div id="all-posts-section" class="hidden">
+                <div class="mb-6">
+                    <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-700">すべての記事</h3>
+                </div>
+                
+                <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <!-- Blog posts will be loaded here -->
+                </div>
             </div>
         </div>
     </section>
@@ -828,6 +840,23 @@ app.get('/', (c) => {
         if (slideInterval) {
           clearInterval(slideInterval)
           slideInterval = null
+        }
+      }
+      
+      // Toggle all posts visibility
+      function toggleAllPosts() {
+        const section = document.getElementById('all-posts-section')
+        const text = document.getElementById('show-more-text')
+        const icon = document.getElementById('show-more-icon')
+        
+        if (section.classList.contains('hidden')) {
+          section.classList.remove('hidden')
+          text.textContent = '閉じる'
+          icon.style.transform = 'rotate(180deg)'
+        } else {
+          section.classList.add('hidden')
+          text.textContent = 'もっと見る'
+          icon.style.transform = 'rotate(0deg)'
         }
       }
       
