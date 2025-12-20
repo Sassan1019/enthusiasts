@@ -1,11 +1,15 @@
 import { Hono } from 'hono'
 import { cors } from 'hono/cors'
+import { serveStatic } from 'hono/cloudflare-pages'
 
 type Bindings = {
   DB: D1Database;
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
+
+// Serve static files (images, etc.)
+app.use('/images/*', serveStatic({ root: './' }))
 
 app.use('/api/*', cors())
 
