@@ -333,28 +333,30 @@ app.get('/', (c) => {
             
             <!-- Slideshow -->
             <div class="mb-12">
-                <div class="slideshow-container relative">
-                    <!-- Previous Button -->
-                    <button onclick="previousSlide()" class="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="前のスライド">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div id="slideshow-content" class="min-h-[350px]">
-                        <!-- Slides will be loaded here -->
-                    </div>
-                    
-                    <!-- Next Button -->
-                    <button onclick="nextSlide()" class="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="次のスライド">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
-                    
-                    <!-- Dots Navigation -->
-                    <div id="slideshow-dots" class="flex justify-center gap-2 mt-4">
-                        <!-- Dots will be loaded here -->
+                <div class="max-w-4xl mx-auto">
+                    <div class="slideshow-container relative">
+                        <!-- Previous Button -->
+                        <button onclick="previousSlide()" class="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="前のスライド">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        
+                        <div id="slideshow-content" class="min-h-[300px]">
+                            <!-- Slides will be loaded here -->
+                        </div>
+                        
+                        <!-- Next Button -->
+                        <button onclick="nextSlide()" class="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="次のスライド">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
+                        
+                        <!-- Dots Navigation -->
+                        <div id="slideshow-dots" class="flex justify-center gap-2 mt-4">
+                            <!-- Dots will be loaded here -->
+                        </div>
                     </div>
                 </div>
             </div>
@@ -731,7 +733,7 @@ app.get('/', (c) => {
               <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
                 <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all">
                   <div class="grid md:grid-cols-2 gap-0">
-                    <div class="h-48 md:h-64">
+                    <div class="h-40 md:h-52">
                       \${post.thumbnail_url ? \`
                         <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-full object-cover">
                       \` : \`
@@ -740,10 +742,10 @@ app.get('/', (c) => {
                         </div>
                       \`}
                     </div>
-                    <div class="p-5 md:p-6 flex flex-col justify-center">
+                    <div class="p-4 md:p-5 flex flex-col justify-center">
                       \${isNote ? '<span class="inline-block bg-orange-50 text-orange-600 text-xs px-2 py-0.5 rounded mb-2 w-fit">note</span>' : ''}
-                      <h3 class="text-base md:text-lg font-semibold mb-2 leading-snug text-gray-900">\${post.title}</h3>
-                      <p class="text-gray-600 mb-3 text-xs md:text-sm leading-relaxed line-clamp-2">\${post.excerpt || ''}</p>
+                      <h3 class="text-sm md:text-base font-semibold mb-2 leading-snug text-gray-900">\${post.title}</h3>
+                      <p class="text-gray-600 mb-2 text-xs leading-relaxed line-clamp-2">\${post.excerpt || ''}</p>
                       <p class="text-xs text-gray-400 mb-2">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
                       <span class="text-gray-600 text-xs inline-flex items-center gap-1">
                         続きを読む →
