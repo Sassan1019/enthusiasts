@@ -175,6 +175,29 @@ app.get('/', (c) => {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
       }
+      .slideshow-container {
+        position: relative;
+        overflow: hidden;
+      }
+      .slide {
+        display: none;
+        animation: slideInFade 0.8s ease-in-out;
+      }
+      .slide.active {
+        display: block;
+      }
+      @keyframes slideInFade {
+        from { opacity: 0; transform: translateX(50px); }
+        to { opacity: 1; transform: translateX(0); }
+      }
+      .slide-dot {
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+      .slide-dot.active {
+        background-color: #000;
+        transform: scale(1.2);
+      }
     </style>
 </head>
 <body class="bg-white text-gray-900 smooth-scroll">
@@ -221,6 +244,27 @@ app.get('/', (c) => {
                 その自由な一歩が、いつか必ず誰かの救いになると信じて進めばいい。</p>
                 
                 <p class="mt-12 text-lg md:text-xl font-normal">私たちは、そんな一人ひとりの光を照らし合い、<br>大きく育てていくチーム。</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Featured Articles Slideshow -->
+    <section class="py-24 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-16">
+                <h2 class="text-4xl md:text-5xl font-bold mb-4 tracking-tight">FEATURED ARTICLES</h2>
+                <p class="text-lg md:text-xl text-gray-600">注目記事</p>
+            </div>
+            
+            <div class="slideshow-container relative">
+                <div id="slideshow-content" class="min-h-[500px]">
+                    <!-- Slides will be loaded here -->
+                </div>
+                
+                <!-- Dots Navigation -->
+                <div id="slideshow-dots" class="flex justify-center gap-3 mt-8">
+                    <!-- Dots will be loaded here -->
+                </div>
             </div>
         </div>
     </section>
@@ -651,7 +695,96 @@ app.get('/', (c) => {
         }
       }
       
-      document.addEventListener('DOMContentLoaded', loadBlogPosts)
+      // Load slideshow
+      let currentSlide = 0
+      let slideInterval
+      
+      async function loadSlideshow() {
+        try {
+          const response = await axios.get('/api/posts')
+          const posts = response.data.posts.slice(0, 3) // Get top 3 posts
+          
+          if (posts.length === 0) return
+          
+          const slideshowContent = document.getElementById('slideshow-content')
+          const slideshowDots = document.getElementById('slideshow-dots')
+          
+          // Create slides
+          slideshowContent.innerHTML = posts.map((post, index) => {
+            const isNote = post.source === 'note'
+            const href = isNote ? post.external_url : \`/blog/\${post.slug}\`
+            const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
+            
+            return \`
+              <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
+                <a href="\${href}" \${target} class="block bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+                  <div class="grid md:grid-cols-2 gap-0">
+                    <div class="h-64 md:h-96">
+                      \${post.thumbnail_url ? \`
+                        <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-full object-cover">
+                      \` : \`
+                        <div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
+                          <span class="text-gray-400 text-4xl">📝</span>
+                        </div>
+                      \`}
+                    </div>
+                    <div class="p-8 md:p-12 flex flex-col justify-center">
+                      \${isNote ? '<span class="inline-block bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded mb-4 w-fit">note</span>' : ''}
+                      <h3 class="text-2xl md:text-4xl font-bold mb-4 leading-tight">\${post.title}</h3>
+                      <p class="text-gray-600 mb-6 text-base md:text-lg leading-relaxed">\${post.excerpt || ''}</p>
+                      <p class="text-sm text-gray-400 mb-4">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
+                      <span class="text-black font-bold inline-flex items-center gap-2">
+                        続きを読む →
+                      </span>
+                    </div>
+                  </div>
+                </a>
+              </div>
+            \`
+          }).join('')
+          
+          // Create dots
+          slideshowDots.innerHTML = posts.map((_, index) => \`
+            <button class="slide-dot w-3 h-3 rounded-full bg-gray-300 \${index === 0 ? 'active' : ''}" data-dot="\${index}" onclick="goToSlide(\${index})"></button>
+          \`).join('')
+          
+          // Start auto-play
+          if (posts.length > 1) {
+            startSlideshow(posts.length)
+          }
+          
+        } catch (error) {
+          console.error('Failed to load slideshow:', error)
+        }
+      }
+      
+      function goToSlide(index) {
+        const slides = document.querySelectorAll('.slide')
+        const dots = document.querySelectorAll('.slide-dot')
+        
+        slides.forEach(slide => slide.classList.remove('active'))
+        dots.forEach(dot => dot.classList.remove('active'))
+        
+        slides[index].classList.add('active')
+        dots[index].classList.add('active')
+        
+        currentSlide = index
+      }
+      
+      function nextSlide() {
+        const slides = document.querySelectorAll('.slide')
+        currentSlide = (currentSlide + 1) % slides.length
+        goToSlide(currentSlide)
+      }
+      
+      function startSlideshow(slideCount) {
+        slideInterval = setInterval(nextSlide, 5000) // Change slide every 5 seconds
+      }
+      
+      document.addEventListener('DOMContentLoaded', () => {
+        loadSlideshow()
+        loadBlogPosts()
+      })
     </script>
 </body>
 </html>
