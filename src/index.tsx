@@ -90,10 +90,22 @@ app.get('/', (c) => {
       }
       .member-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
+        cursor: pointer;
       }
       .member-card:hover {
         transform: translateY(-8px);
         box-shadow: 0 12px 24px rgba(0,0,0,0.15);
+      }
+      .modal-backdrop {
+        backdrop-filter: blur(4px);
+        animation: fadeIn 0.3s ease;
+      }
+      .modal-content {
+        animation: slideUp 0.3s ease;
+      }
+      @keyframes slideUp {
+        from { opacity: 0; transform: translateY(30px); }
+        to { opacity: 1; transform: translateY(0); }
       }
     </style>
 </head>
@@ -239,92 +251,57 @@ app.get('/', (c) => {
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Member 1: 佐々木 慧 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(0)">
                     <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">PROJECT LEADER</div>
                         <h3 class="text-2xl font-bold mb-2">佐々木 慧</h3>
-                        <p class="text-sm text-gray-500 mb-4">理念: 原石に光を</p>
-                        <div class="mb-4">
-                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
-                            <p class="text-xs text-gray-600">ファイナンス・経営戦略・プロデュース・考察</p>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            元日本一のレーサーを父に持つ元レーサー。夢を失った虚無感から一念発起し、IT業界での成功を目指し上京。用意された成功に違和感を覚え、すべての内定を辞退。現在は、出逢った人の才能の機会損失をゼロにするプロジェクトをリード。
-                        </p>
+                        <p class="text-sm text-gray-600">理念: 原石に光を</p>
                     </div>
                 </div>
 
                 <!-- Member 2: 布野 雅也 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(1)">
                     <img src="/images/member-1.jpg" alt="布野 雅也" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">布野 雅也</h3>
-                        <p class="text-sm text-gray-500 mb-4">理念: Find Your Why .</p>
-                        <div class="mb-4">
-                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
-                            <p class="text-xs text-gray-600">マーケティング・PR・プロデュース</p>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            ビジョンは「今を生きる人があふれる世界」。マーケティングとPRの専門性を活かし、プロジェクトの価値を社会に届けるコアメンバー。
-                        </p>
+                        <p class="text-sm text-gray-600">理念: Find Your Why .</p>
                     </div>
                 </div>
 
                 <!-- Member 3: 黒岩 礼生 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(2)">
                     <img src="/images/member-5.jpg" alt="黒岩 礼生" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">黒岩 礼生</h3>
-                        <p class="text-sm text-gray-500 mb-4">理念: 人々に眠る愛おしさを照らし出す</p>
-                        <div class="mb-4">
-                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
-                            <p class="text-xs text-gray-600">シークレット</p>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            幼少期からの苦悩を経て、食・健康・自己受容をテーマにコーチングを展開。「すみません」ではなく「ありがとう」が飛び交う日本を目指し、自立したGiver同士が愛し合う世界の実現に挑戦中。
-                        </p>
+                        <p class="text-sm text-gray-600">理念: 人々に眠る愛おしさを照らし出す</p>
                     </div>
                 </div>
 
                 <!-- Member 4: 甘糟 里奈 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(3)">
                     <img src="/images/member-3.jpg" alt="甘糟 里奈" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">甘糟 里奈</h3>
-                        <p class="text-sm text-gray-500 mb-4">理念: 感性で世界を彩る</p>
-                        <div class="mb-4">
-                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
-                            <p class="text-xs text-gray-600">PR</p>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            3000冊以上の物語から独自の感性を磨いた。転落を経て佐々木との出逢いで再起。栃木県さくら市の地域おこし協力隊として、地域の魅力をアートへと昇華させ、新たな熱狂を生み出している。
-                        </p>
+                        <p class="text-sm text-gray-600">理念: 感性で世界を彩る</p>
                     </div>
                 </div>
 
                 <!-- Member 5: 當内 脩平 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(4)">
                     <img src="/images/member-4.jpg" alt="當内 脩平" class="w-full h-64 object-cover">
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">當内 脩平</h3>
-                        <p class="text-sm text-gray-500 mb-4">理念: Make Your Rock</p>
-                        <div class="mb-4">
-                            <p class="text-xs font-bold text-gray-600 mb-1">専門分野</p>
-                            <p class="text-xs text-gray-600">PR・イベントプロデュース</p>
-                        </div>
-                        <p class="text-sm text-gray-700 leading-relaxed">
-                            二度の不登校を経験し、Rockに救われた。大阪天王寺で音楽フェス「STAR'Z DASH!!」を主催。衝動と脆さが響き合う世界を現実にすべく、音楽と経営の二軸で行き場のない若者たちの道を切り拓く。
-                        </p>
+                        <p class="text-sm text-gray-600">理念: Make Your Rock</p>
                     </div>
                 </div>
 
                 <!-- Future Member Card -->
-                <div class="member-card bg-white overflow-hidden shadow-sm border-2 border-dashed border-gray-300">
+                <div class="bg-white overflow-hidden shadow-sm border-2 border-dashed border-gray-300 rounded-lg" style="cursor: default;">
                     <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
                         <div class="text-center">
                             <p class="text-4xl text-gray-300 mb-4">?</p>
@@ -335,6 +312,16 @@ app.get('/', (c) => {
                         <h3 class="text-xl font-bold mb-2">あなた</h3>
                         <p class="text-gray-600 text-sm mb-3">Your Role</p>
                         <p class="text-gray-700 text-sm">才能を覚醒させる旅に、あなたも参加しませんか?</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Member Modal -->
+            <div id="memberModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 modal-backdrop px-4" onclick="closeMemberModal(event)">
+                <div class="bg-white rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto modal-content" onclick="event.stopPropagation()">
+                    <div class="relative">
+                        <button onclick="closeMemberModal()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl z-10">&times;</button>
+                        <div id="modalContent"></div>
                     </div>
                 </div>
             </div>
@@ -416,6 +403,120 @@ app.get('/', (c) => {
 
     <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
     <script>
+      // Member data
+      const memberData = [
+        {
+          name: '佐々木 慧',
+          role: 'PROJECT LEADER',
+          philosophy: '原石に光を',
+          vision: '才能の機会損失がゼロになった世界',
+          expertise: 'ファイナンス・経営戦略・プロデュース・考察',
+          image: '/images/member-2.jpg',
+          story: '元日本一のレーサーを父に持ち、自身もその背中を追いかけた元レーサー。レース中のクラッシュで再起不能となり、資金難も重なりレーサーの夢を断念。夢を失った虚無感から一念発起し、IT業界での成功を目指し上京。大学と専門学校のWスクールで勉強を重ね、多数の資格を取得。就職活動では、人気就活番組で年収600万円のオファーを勝ち取るも、用意された成功に違和感を覚え、すべての内定を辞退。その後、経営とファイナンスを学び、東大や京大でのイベントプロデュースに参画。現在は、出逢った人の才能の機会損失をゼロにするプロジェクトを立ち上げ、ご縁があった若者の衝動に愛と知性を加え、その可能性をプロデュースしている。'
+        },
+        {
+          name: '布野 雅也',
+          role: 'CORE MEMBER',
+          philosophy: 'Find Your Why .',
+          vision: '今を生きる人があふれる世界',
+          expertise: 'マーケティング・PR・プロデュース',
+          image: '/images/member-1.jpg',
+          story: 'ビジョンは「今を生きる人があふれる世界」。マーケティングとPRの専門性を活かし、プロジェクトの価値を社会に届けるコアメンバー。'
+        },
+        {
+          name: '黒岩 礼生',
+          role: 'CORE MEMBER',
+          philosophy: '人々に眠る愛おしさを照らし出す',
+          vision: '誰もがかっこいい自分を大好きに',
+          expertise: 'シークレット',
+          image: '/images/member-5.jpg',
+          story: '幼少期から不安定な家庭環境の中で過ごし、転居や人間関係における苦悩を経験。集団に馴染むことや「普通に生きること」に難しさを覚えながら大学時代を過ごす。一人暮らしの中で顕在化した「孤独」と向き合い続ける生活のなかで、生活習慣改善・体調管理をきっかけにポジティブなマインドセットを醸成することと、己を愛すること（自己愛）の重要性に気づく。現在は、食・健康・自己受容をテーマにコーチングやSNSで発信中。目指すのは、自立したGiver同士が愛し合う世界。「すみません」という謝罪ではなく、「ありがとう」という感謝が飛び交う日本に変えるべく、挑戦を続けている。'
+        },
+        {
+          name: '甘糟 里奈',
+          role: 'MEMBER',
+          philosophy: '感性で世界を彩る',
+          vision: '頑張る人々が心の余白で輝ける社会を',
+          expertise: 'PR',
+          image: '/images/member-3.jpg',
+          story: '「本だけが、心の拠り所だった」 幼少期から3000冊以上の物語に没頭し、独自の感性を磨き上げた。「右向け右」の社会に葛藤しながらも、生徒会活動や豪州留学へ挑戦。外の世界に触れることで、日本のサブカルが放つ独自の輝きを再確認する。しかし、いじめや家庭崩壊、受験と就職の失敗により転落。生きる意味を喪失し、まさに「生きた屍」として日々を浪費していた。転機は、佐々木との出逢い。彼との対話により、自身の武器は読書で培った「感性」と「芸術」にあると気づく。現在は栃木県さくら市に移住し、地域おこし協力隊として活動中。地域の魅力をアートへと昇華させ、地元の人々と共に新たな熱狂を生み出している。'
+        },
+        {
+          name: '當内 脩平',
+          role: 'MEMBER',
+          philosophy: 'Make Your Rock 〜自分を壊さない道と術を〜',
+          vision: '衝動と脆さが響き合う世界に',
+          expertise: 'PR・イベントプロデュース',
+          image: '/images/member-4.jpg',
+          url: 'https://starzdash.com/',
+          story: '「正しさ」という仮面を被り、息を潜めて生きた少年時代。中学受験をするも、周囲の価値観に馴染めず、二度の不登校を経験。自分が間違っているかのような絶望の中で、魂を震わせる「Rock」に惹かれる。音楽がくれた救い、そして夢を追う同志や佐々木との出逢いを通じて衝動を形に変える手段を手に入れる。現在は、大阪天王寺にて音楽フェス「STAR\\'Z DASH!!」を主催。「衝動と脆さが響き合う世界」を現実にすべく、音楽と経営の二軸で、行き場のない若者たちの道を切り拓いている。'
+        }
+      ];
+
+      // Open member modal
+      function openMemberModal(index) {
+        const member = memberData[index];
+        const modal = document.getElementById('memberModal');
+        const modalContent = document.getElementById('modalContent');
+        
+        modalContent.innerHTML = \`
+          <img src="\${member.image}" alt="\${member.name}" class="w-full h-80 object-cover">
+          <div class="p-8">
+            <div class="text-sm font-bold text-gray-400 mb-2 tracking-widest">\${member.role}</div>
+            <h2 class="text-3xl md:text-4xl font-bold mb-4">\${member.name}</h2>
+            
+            <div class="mb-6 pb-6 border-b">
+              <p class="text-lg font-semibold text-gray-700 mb-2">理念</p>
+              <p class="text-xl text-gray-900">\${member.philosophy}</p>
+            </div>
+            
+            <div class="mb-6 pb-6 border-b">
+              <p class="text-lg font-semibold text-gray-700 mb-2">ビジョン</p>
+              <p class="text-xl text-gray-900">\${member.vision}</p>
+            </div>
+            
+            <div class="mb-6 pb-6 border-b">
+              <p class="text-lg font-semibold text-gray-700 mb-2">専門分野</p>
+              <p class="text-gray-900">\${member.expertise}</p>
+            </div>
+            
+            <div class="mb-6">
+              <p class="text-lg font-semibold text-gray-700 mb-4">ストーリー</p>
+              <p class="text-gray-700 leading-relaxed whitespace-pre-line">\${member.story}</p>
+            </div>
+            
+            \${member.url ? \`
+              <div class="mt-8">
+                <a href="\${member.url}" target="_blank" rel="noopener noreferrer" class="inline-block bg-black text-white px-6 py-3 rounded-lg hover:bg-gray-800 transition-colors">
+                  詳しく見る →
+                </a>
+              </div>
+            \` : ''}
+          </div>
+        \`;
+        
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+      }
+
+      // Close member modal
+      function closeMemberModal(event) {
+        if (event && event.target !== event.currentTarget) return;
+        
+        const modal = document.getElementById('memberModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = 'auto';
+      }
+
+      // Close modal on Escape key
+      document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+          closeMemberModal();
+        }
+      });
+    
       // Load blog posts
       async function loadBlogPosts() {
         try {
