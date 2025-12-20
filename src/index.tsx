@@ -147,6 +147,98 @@ app.post('/api/contact', async (c) => {
   }
 })
 
+// API: Admin login
+app.post('/api/admin/login', async (c) => {
+  try {
+    const { password } = await c.req.json()
+    const { ADMIN_PASSWORD_HASH } = c.env
+    
+    if (!password) {
+      return c.json({ error: 'Password is required' }, 400)
+    }
+    
+    // Hash the provided password using Web Crypto API
+    const encoder = new TextEncoder()
+    const data = encoder.encode(password)
+    const hashBuffer = await crypto.subtle.digest('SHA-256', data)
+    const hashArray = Array.from(new Uint8Array(hashBuffer))
+    const hashHex = hashArray.map(b => b.toString(16).padStart(2, '0')).join('')
+    
+    // Compare with stored hash
+    if (hashHex === ADMIN_PASSWORD_HASH) {
+      // Generate a simple session token
+      const sessionToken = crypto.randomUUID()
+      
+      return c.json({ 
+        success: true,
+        token: sessionToken 
+      })
+    } else {
+      return c.json({ error: 'Invalid password' }, 401)
+    }
+    
+  } catch (error) {
+    console.error('Error in admin login:', error)
+    return c.json({ error: 'Login failed' }, 500)
+  }
+})
+
+// API: Get all contacts (admin only)
+app.get('/api/admin/contacts', async (c) => {
+  const { DB } = c.env
+  const authHeader = c.req.header('Authorization')
+  
+  // Simple token check (in production, use proper session management)
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return c.json({ error: 'Unauthorized' }, 401)
+  }
+  
+  try {
+    const result = await DB.prepare(`
+      SELECT id, name, email, subject, message, status, created_at
+      FROM contacts
+      ORDER BY created_at DESC
+    `).all()
+    
+    return c.json({ contacts: result.results })
+    
+  } catch (error) {
+    console.error('Error fetching contacts:', error)
+    return c.json({ error: 'Failed to fetch contacts' }, 500)
+  }
+})
+
+// API: Update contact status (admin only)
+app.patch('/api/admin/contacts/:id', async (c) => {
+  const { DB } = c.env
+  const authHeader = c.req.header('Authorization')
+  const id = c.req.param('id')
+  
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return c.json({ error: 'Unauthorized' }, 401)
+  }
+  
+  try {
+    const { status } = await c.req.json()
+    
+    if (!['new', 'read', 'replied'].includes(status)) {
+      return c.json({ error: 'Invalid status' }, 400)
+    }
+    
+    await DB.prepare(`
+      UPDATE contacts
+      SET status = ?, updated_at = datetime('now')
+      WHERE id = ?
+    `).bind(status, id).run()
+    
+    return c.json({ success: true })
+    
+  } catch (error) {
+    console.error('Error updating contact:', error)
+    return c.json({ error: 'Failed to update contact' }, 500)
+  }
+})
+
 // Home page
 app.get('/', (c) => {
   return c.html(`
@@ -1175,6 +1267,239 @@ app.get('/privacy', (c) => {
             </div>
         </div>
     </footer>
+</body>
+</html>
+  `)
+})
+
+// Admin contacts page
+app.get('/admin/contacts', (c) => {
+  return c.html(`
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ管理 | Admin</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      }
+    </style>
+</head>
+<body class="bg-gray-50 text-gray-900">
+    
+    <!-- Login Modal -->
+    <div id="login-modal" class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white rounded-lg p-8 max-w-md w-full mx-4">
+            <h2 class="text-2xl font-bold mb-6 text-center">管理者ログイン</h2>
+            <form id="login-form" class="space-y-4">
+                <div>
+                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">パスワード</label>
+                    <input type="password" id="password" name="password" required
+                           class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none">
+                </div>
+                <div id="login-error" class="hidden text-red-600 text-sm"></div>
+                <button type="submit" id="login-btn"
+                        class="w-full bg-gray-900 text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors font-medium">
+                    ログイン
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Admin Panel -->
+    <div id="admin-panel" class="hidden">
+        <header class="bg-white border-b">
+            <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+                <h1 class="text-2xl font-bold">お問い合わせ管理</h1>
+                <div class="flex items-center gap-4">
+                    <button onclick="loadContacts()" class="text-sm text-gray-600 hover:text-gray-900">
+                        🔄 更新
+                    </button>
+                    <button onclick="logout()" class="text-sm text-gray-600 hover:text-gray-900">
+                        ログアウト
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="max-w-7xl mx-auto px-6 py-8">
+            <!-- Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+                <div class="bg-white p-6 rounded-lg border">
+                    <div class="text-sm text-gray-600 mb-1">新着</div>
+                    <div class="text-3xl font-bold" id="stat-new">0</div>
+                </div>
+                <div class="bg-white p-6 rounded-lg border">
+                    <div class="text-sm text-gray-600 mb-1">確認済み</div>
+                    <div class="text-3xl font-bold" id="stat-read">0</div>
+                </div>
+                <div class="bg-white p-6 rounded-lg border">
+                    <div class="text-sm text-gray-600 mb-1">返信済み</div>
+                    <div class="text-3xl font-bold" id="stat-replied">0</div>
+                </div>
+            </div>
+
+            <!-- Contacts List -->
+            <div class="bg-white rounded-lg border">
+                <div id="contacts-container" class="divide-y">
+                    <div class="p-8 text-center text-gray-500">
+                        読み込み中...
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
+    <script>
+      let authToken = localStorage.getItem('admin_token')
+      
+      // Check if already logged in
+      if (authToken) {
+        showAdminPanel()
+      }
+      
+      // Login form submission
+      document.getElementById('login-form').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        
+        const password = document.getElementById('password').value
+        const loginBtn = document.getElementById('login-btn')
+        const loginError = document.getElementById('login-error')
+        
+        loginBtn.disabled = true
+        loginBtn.textContent = 'ログイン中...'
+        loginError.classList.add('hidden')
+        
+        try {
+          const response = await axios.post('/api/admin/login', { password })
+          authToken = response.data.token
+          localStorage.setItem('admin_token', authToken)
+          showAdminPanel()
+        } catch (error) {
+          loginError.textContent = 'パスワードが正しくありません'
+          loginError.classList.remove('hidden')
+        } finally {
+          loginBtn.disabled = false
+          loginBtn.textContent = 'ログイン'
+          document.getElementById('password').value = ''
+        }
+      })
+      
+      function showAdminPanel() {
+        document.getElementById('login-modal').classList.add('hidden')
+        document.getElementById('admin-panel').classList.remove('hidden')
+        loadContacts()
+      }
+      
+      function logout() {
+        localStorage.removeItem('admin_token')
+        authToken = null
+        document.getElementById('login-modal').classList.remove('hidden')
+        document.getElementById('admin-panel').classList.add('hidden')
+      }
+      
+      async function loadContacts() {
+        try {
+          const response = await axios.get('/api/admin/contacts', {
+            headers: { 'Authorization': \`Bearer \${authToken}\` }
+          })
+          
+          const contacts = response.data.contacts
+          
+          // Update stats
+          document.getElementById('stat-new').textContent = contacts.filter(c => c.status === 'new').length
+          document.getElementById('stat-read').textContent = contacts.filter(c => c.status === 'read').length
+          document.getElementById('stat-replied').textContent = contacts.filter(c => c.status === 'replied').length
+          
+          // Render contacts
+          const container = document.getElementById('contacts-container')
+          
+          if (contacts.length === 0) {
+            container.innerHTML = '<div class="p-8 text-center text-gray-500">お問い合わせはまだありません</div>'
+            return
+          }
+          
+          container.innerHTML = contacts.map(contact => \`
+            <div class="p-6 hover:bg-gray-50 transition-colors">
+              <div class="flex items-start justify-between mb-4">
+                <div class="flex-1">
+                  <div class="flex items-center gap-3 mb-2">
+                    <h3 class="font-semibold text-lg">\${contact.name}</h3>
+                    <span class="text-sm text-gray-600">\${contact.email}</span>
+                    <span class="status-badge status-\${contact.status} text-xs px-2 py-1 rounded">
+                      \${getStatusLabel(contact.status)}
+                    </span>
+                  </div>
+                  \${contact.subject ? \`<p class="text-sm text-gray-600 mb-2">件名: \${contact.subject}</p>\` : ''}
+                  <p class="text-sm text-gray-700 whitespace-pre-line">\${contact.message}</p>
+                </div>
+              </div>
+              <div class="flex items-center justify-between">
+                <div class="text-xs text-gray-500">
+                  \${new Date(contact.created_at).toLocaleString('ja-JP')}
+                </div>
+                <div class="flex gap-2">
+                  \${contact.status !== 'read' ? \`
+                    <button onclick="updateStatus(\${contact.id}, 'read')" 
+                            class="text-xs px-3 py-1 bg-blue-100 text-blue-700 rounded hover:bg-blue-200 transition-colors">
+                      確認済みにする
+                    </button>
+                  \` : ''}
+                  \${contact.status !== 'replied' ? \`
+                    <button onclick="updateStatus(\${contact.id}, 'replied')" 
+                            class="text-xs px-3 py-1 bg-green-100 text-green-700 rounded hover:bg-green-200 transition-colors">
+                      返信済みにする
+                    </button>
+                  \` : ''}
+                </div>
+              </div>
+            </div>
+          \`).join('')
+          
+        } catch (error) {
+          console.error('Failed to load contacts:', error)
+          if (error.response?.status === 401) {
+            logout()
+          }
+        }
+      }
+      
+      async function updateStatus(id, status) {
+        try {
+          await axios.patch(\`/api/admin/contacts/\${id}\`, 
+            { status },
+            { headers: { 'Authorization': \`Bearer \${authToken}\` } }
+          )
+          loadContacts()
+        } catch (error) {
+          console.error('Failed to update status:', error)
+          alert('ステータスの更新に失敗しました')
+        }
+      }
+      
+      function getStatusLabel(status) {
+        const labels = {
+          'new': '新着',
+          'read': '確認済み',
+          'replied': '返信済み'
+        }
+        return labels[status] || status
+      }
+    </script>
+    
+    <style>
+      .status-new { background-color: #fef3c7; color: #92400e; }
+      .status-read { background-color: #dbeafe; color: #1e40af; }
+      .status-replied { background-color: #d1fae5; color: #065f46; }
+    </style>
 </body>
 </html>
   `)
