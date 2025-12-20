@@ -16,19 +16,30 @@
 - [x] ミニマルで洗練されたLPデザイン
 - [x] Hero セクション(大胆な英語タイポグラフィ + 背景画像)
 - [x] Philosophy セクション(理念・ビジョン・ミッション / グリッドレイアウト)
-- [x] What We Do セクション(提供価値5項目)
-- [x] Blog セクション(記事一覧表示)
+- [x] What We Do セクション(提供価値6項目: 1on1コーチング、コミュニティ運営、イベント開催、プロデュース、プロジェクト立ち上げ支援、マッチング)
+- [x] Blog セクション(記事一覧表示 + スライドショー)
+  - [x] 最新3記事のスライドショー(自動再生・手動操作)
+  - [x] 前後ボタンとドットナビゲーション
+  - [x] 手動操作時の自動再生停止機能
+- [x] noteとの連携(RSS取得)
+  - [x] noteのRSSフィードから記事を自動取得
+  - [x] noteバッジ表示と外部リンク対応
+  - [x] サムネイル画像の取得と表示
+  - [x] 手動同期API (`POST /api/sync-note`)
 - [x] Member セクション(メンバー5名の詳細プロフィール + 未来メンバー枠)
+  - [x] メンバーモーダル機能(名前・理念クリックで詳細表示)
+  - [x] SNSリンク機能(Instagram、X)
 - [x] Achievements セクション(実績表示)
 - [x] CTA Banner セクション(JOIN US + BLOG)
 - [x] D1データベースによるブログ機能
-- [x] ブログAPI(`/api/posts`, `/api/posts/:slug`)
+- [x] ブログAPI(`/api/posts`, `/api/posts/:slug`, `/api/sync-note`)
 - [x] レスポンシブデザイン(モバイルファースト)
 - [x] Google Fonts (Montserrat + Noto Sans JP)
 - [x] スムーススクロール・アニメーション
-- [x] Enthusiastsロゴ配置(ヘッダー・フッター)
+- [x] Enthusiastsロゴ配置(ヘッダー・フッター / 背景透過版)
 - [x] ナビゲーションメニュー実装
 - [x] crossfields.jp風の統一デザイン(英語見出し + 日本語サブタイトル)
+- [x] 控えめで上品なブログセクションデザイン
 
 ### 🚧 未実装
 - [ ] ブログ記事管理画面(CRUD機能)
@@ -45,8 +56,9 @@
 
 | エンドポイント | メソッド | 説明 |
 |------------|---------|-----|
-| `/api/posts` | GET | 公開済み記事一覧を取得 |
+| `/api/posts` | GET | 公開済み記事一覧を取得(内部記事 + note記事) |
 | `/api/posts/:slug` | GET | 特定記事の詳細を取得 |
+| `/api/sync-note` | POST | noteのRSSフィードから記事を同期(手動実行) |
 
 ## データ構造
 
@@ -59,6 +71,9 @@ CREATE TABLE posts (
   content TEXT NOT NULL,
   excerpt TEXT,
   published BOOLEAN DEFAULT 0,
+  source TEXT DEFAULT 'internal',           -- 'internal' or 'note'
+  external_url TEXT,                       -- noteの場合は外部URL
+  thumbnail_url TEXT,                      -- サムネイル画像URL
   created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
   updated_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -70,11 +85,15 @@ CREATE TABLE posts (
 - **理念**: 原石に光を
 - **専門分野**: ファイナンス・経営戦略・プロデュース・考察
 - **背景**: 元日本一のレーサーを父に持つ元レーサー。夢を失った後、IT業界での成功を目指し上京。用意された成功を辞退し、才能の機会損失をゼロにするプロジェクトを立ち上げる。
+- **SNS**: 
+  - Instagram: https://www.instagram.com/sasaki.1019/
+  - X: https://x.com/Cat_badminton
 
 ### 布野 雅也 - Core Member
 - **理念**: Find Your Why .
 - **専門分野**: マーケティング・PR・プロデュース
 - **ビジョン**: 今を生きる人があふれる世界
+- **背景**: 「島根の陸上を強くする」その志を胸に、高校時代は絶対王者の25連覇を阻むジャイアントキリングを達成し、チームを初の全国へ導いた。その後、都内の強豪大学へ進むも、怪我により志半ばで引退。「走る」という生きがいを失いかけたが、陸上イベントの主催・プロデュースという新たな道に出逢う。そこで「人々が熱狂する瞬間」を生み出す喜びに目覚めた。就職活動では「自分の人生を自分の足で歩みたい」という想いから、複数の内定をすべて辞退。現在は佐々木と共に、自己実現へ向けた新たな一歩を踏み出している。
 
 ### 黒岩 礼生 - Core Member
 - **理念**: 人々に眠る愛おしさを照らし出す
@@ -150,7 +169,7 @@ npm run deploy
 
 - **プラットフォーム**: Cloudflare Pages (未デプロイ)
 - **ステータス**: ❌ 未デプロイ
-- **最終更新**: 2024-12-20
+- **最終更新**: 2025-12-20
 
 ## ライセンス
 
