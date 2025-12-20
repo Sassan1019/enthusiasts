@@ -85,9 +85,6 @@ app.get('/', (c) => {
       .smooth-scroll {
         scroll-behavior: smooth;
       }
-      .logo-transparent {
-        mix-blend-mode: multiply;
-      }
       .member-card {
         transition: transform 0.3s ease, box-shadow 0.3s ease;
         cursor: pointer;
@@ -115,7 +112,7 @@ app.get('/', (c) => {
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
             <a href="/" class="flex items-center">
-                <img src="/images/logo-horizontal.png" alt="Enthusiasts" class="h-12 w-auto logo-transparent">
+                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-12 w-auto">
             </a>
             <nav class="hidden md:flex space-x-8">
                 <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
@@ -579,9 +576,6 @@ app.get('/blog/:slug', async (c) => {
       .prose h3 { font-size: 1.5em; font-weight: 600; margin: 1.5em 0 0.5em; }
       .prose p { margin: 1em 0; line-height: 1.8; }
       .prose a { color: #3b82f6; text-decoration: underline; }
-      .logo-transparent {
-        mix-blend-mode: multiply;
-      }
     </style>
 </head>
 <body class="bg-white text-gray-900">
@@ -589,7 +583,7 @@ app.get('/blog/:slug', async (c) => {
     <header class="py-4 px-6 border-b bg-white">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
             <a href="/" class="flex items-center">
-                <img src="/images/logo-horizontal.png" alt="Enthusiasts" class="h-10 w-auto logo-transparent">
+                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-10 w-auto">
             </a>
             <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
         </div>
