@@ -181,22 +181,22 @@ app.get('/', (c) => {
       }
       .slide {
         display: none;
-        animation: slideInFade 0.8s ease-in-out;
+        animation: slideInFade 0.5s ease;
       }
       .slide.active {
         display: block;
       }
       @keyframes slideInFade {
-        from { opacity: 0; transform: translateX(50px); }
-        to { opacity: 1; transform: translateX(0); }
+        from { opacity: 0; }
+        to { opacity: 1; }
       }
       .slide-dot {
         cursor: pointer;
-        transition: all 0.3s ease;
+        transition: all 0.2s ease;
       }
       .slide-dot.active {
-        background-color: #000;
-        transform: scale(1.2);
+        background-color: #4b5563;
+        transform: scale(1.3);
       }
     </style>
 </head>
@@ -324,33 +324,47 @@ app.get('/', (c) => {
     </section>
 
     <!-- Blog Section -->
-    <section id="blog" class="py-32 px-6 bg-white">
+    <section id="blog" class="py-20 px-6 bg-white">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">BLOG</h2>
-                <p class="text-xl md:text-2xl text-gray-600">ブログ</p>
+            <div class="text-center mb-12">
+                <h2 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-gray-800">BLOG</h2>
+                <p class="text-sm md:text-base text-gray-500">ブログ</p>
             </div>
             
             <!-- Slideshow -->
-            <div class="mb-16">
+            <div class="mb-12">
                 <div class="slideshow-container relative">
-                    <div id="slideshow-content" class="min-h-[500px]">
+                    <!-- Previous Button -->
+                    <button onclick="previousSlide()" class="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="前のスライド">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    
+                    <div id="slideshow-content" class="min-h-[350px]">
                         <!-- Slides will be loaded here -->
                     </div>
                     
+                    <!-- Next Button -->
+                    <button onclick="nextSlide()" class="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="次のスライド">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                    
                     <!-- Dots Navigation -->
-                    <div id="slideshow-dots" class="flex justify-center gap-3 mt-8">
+                    <div id="slideshow-dots" class="flex justify-center gap-2 mt-4">
                         <!-- Dots will be loaded here -->
                     </div>
                 </div>
             </div>
             
             <!-- All Blog Posts -->
-            <div class="mb-12">
-                <h3 class="text-2xl md:text-3xl font-bold mb-8 text-center">すべての記事</h3>
+            <div class="mb-6">
+                <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-700">すべての記事</h3>
             </div>
             
-            <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
                 <!-- Blog posts will be loaded here -->
             </div>
         </div>
@@ -675,15 +689,15 @@ app.get('/', (c) => {
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
             
             return \`
-              <a href="\${href}" \${target} class="block bg-white overflow-hidden shadow-sm hover:shadow-md transition-shadow rounded-lg">
+              <a href="\${href}" \${target} class="block bg-white overflow-hidden border border-gray-200 hover:border-gray-300 transition-all rounded">
                 \${post.thumbnail_url ? \`
-                  <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-48 object-cover">
+                  <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-44 object-cover">
                 \` : ''}
-                <div class="p-6">
-                  \${isNote ? '<span class="inline-block bg-orange-100 text-orange-800 text-xs font-bold px-2 py-1 rounded mb-2">note</span>' : ''}
-                  <h3 class="text-xl font-bold mb-3">\${post.title}</h3>
-                  <p class="text-gray-600 mb-4">\${post.excerpt || ''}</p>
-                  <p class="text-sm text-gray-400">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
+                <div class="p-5">
+                  \${isNote ? '<span class="inline-block bg-orange-50 text-orange-600 text-xs px-2 py-0.5 rounded mb-2">note</span>' : ''}
+                  <h3 class="text-base font-semibold mb-2 text-gray-900">\${post.title}</h3>
+                  <p class="text-gray-600 mb-3 text-sm line-clamp-2">\${post.excerpt || ''}</p>
+                  <p class="text-xs text-gray-400">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
                 </div>
               </a>
             \`
@@ -715,23 +729,23 @@ app.get('/', (c) => {
             
             return \`
               <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
-                <a href="\${href}" \${target} class="block bg-white rounded-lg overflow-hidden shadow-lg hover:shadow-2xl transition-all">
+                <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all">
                   <div class="grid md:grid-cols-2 gap-0">
-                    <div class="h-64 md:h-96">
+                    <div class="h-48 md:h-64">
                       \${post.thumbnail_url ? \`
                         <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-full object-cover">
                       \` : \`
-                        <div class="w-full h-full bg-gradient-to-br from-gray-200 to-gray-300 flex items-center justify-center">
-                          <span class="text-gray-400 text-4xl">📝</span>
+                        <div class="w-full h-full bg-gray-100 flex items-center justify-center">
+                          <span class="text-gray-300 text-2xl">📝</span>
                         </div>
                       \`}
                     </div>
-                    <div class="p-8 md:p-12 flex flex-col justify-center">
-                      \${isNote ? '<span class="inline-block bg-orange-100 text-orange-800 text-xs font-bold px-3 py-1 rounded mb-4 w-fit">note</span>' : ''}
-                      <h3 class="text-2xl md:text-4xl font-bold mb-4 leading-tight">\${post.title}</h3>
-                      <p class="text-gray-600 mb-6 text-base md:text-lg leading-relaxed">\${post.excerpt || ''}</p>
-                      <p class="text-sm text-gray-400 mb-4">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
-                      <span class="text-black font-bold inline-flex items-center gap-2">
+                    <div class="p-5 md:p-6 flex flex-col justify-center">
+                      \${isNote ? '<span class="inline-block bg-orange-50 text-orange-600 text-xs px-2 py-0.5 rounded mb-2 w-fit">note</span>' : ''}
+                      <h3 class="text-base md:text-lg font-semibold mb-2 leading-snug text-gray-900">\${post.title}</h3>
+                      <p class="text-gray-600 mb-3 text-xs md:text-sm leading-relaxed line-clamp-2">\${post.excerpt || ''}</p>
+                      <p class="text-xs text-gray-400 mb-2">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
+                      <span class="text-gray-600 text-xs inline-flex items-center gap-1">
                         続きを読む →
                       </span>
                     </div>
@@ -743,7 +757,7 @@ app.get('/', (c) => {
           
           // Create dots
           slideshowDots.innerHTML = posts.map((_, index) => \`
-            <button class="slide-dot w-3 h-3 rounded-full bg-gray-300 \${index === 0 ? 'active' : ''}" data-dot="\${index}" onclick="goToSlide(\${index})"></button>
+            <button class="slide-dot w-2 h-2 rounded-full bg-gray-300 \${index === 0 ? 'active' : ''}" data-dot="\${index}" onclick="goToSlide(\${index})" aria-label="スライド\${index + 1}"></button>
           \`).join('')
           
           // Start auto-play
@@ -767,16 +781,38 @@ app.get('/', (c) => {
         dots[index].classList.add('active')
         
         currentSlide = index
+        
+        // Stop auto-play when user manually selects a slide
+        stopSlideshow()
       }
       
       function nextSlide() {
         const slides = document.querySelectorAll('.slide')
+        if (slides.length === 0) return
         currentSlide = (currentSlide + 1) % slides.length
         goToSlide(currentSlide)
+        // Stop auto-play when user manually navigates
+        stopSlideshow()
+      }
+      
+      function previousSlide() {
+        const slides = document.querySelectorAll('.slide')
+        if (slides.length === 0) return
+        currentSlide = (currentSlide - 1 + slides.length) % slides.length
+        goToSlide(currentSlide)
+        // Stop auto-play when user manually navigates
+        stopSlideshow()
       }
       
       function startSlideshow(slideCount) {
         slideInterval = setInterval(nextSlide, 5000) // Change slide every 5 seconds
+      }
+      
+      function stopSlideshow() {
+        if (slideInterval) {
+          clearInterval(slideInterval)
+          slideInterval = null
+        }
       }
       
       document.addEventListener('DOMContentLoaded', () => {
