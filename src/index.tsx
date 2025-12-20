@@ -414,7 +414,11 @@ app.get('/', (c) => {
           vision: '才能の機会損失がゼロになった世界',
           expertise: 'ファイナンス・経営戦略・プロデュース・考察',
           image: '/images/member-2.jpg',
-          story: '元日本一のレーサーを父に持ち、自身もその背中を追いかけた元レーサー。レース中のクラッシュで再起不能となり、資金難も重なりレーサーの夢を断念。夢を失った虚無感から一念発起し、IT業界での成功を目指し上京。大学と専門学校のWスクールで勉強を重ね、多数の資格を取得。就職活動では、人気就活番組で年収600万円のオファーを勝ち取るも、用意された成功に違和感を覚え、すべての内定を辞退。その後、経営とファイナンスを学び、東大や京大でのイベントプロデュースに参画。現在は、出逢った人の才能の機会損失をゼロにするプロジェクトを立ち上げ、ご縁があった若者の衝動に愛と知性を加え、その可能性をプロデュースしている。'
+          story: '元日本一のレーサーを父に持ち、自身もその背中を追いかけた元レーサー。レース中のクラッシュで再起不能となり、資金難も重なりレーサーの夢を断念。夢を失った虚無感から一念発起し、IT業界での成功を目指し上京。大学と専門学校のWスクールで勉強を重ね、多数の資格を取得。就職活動では、人気就活番組で年収600万円のオファーを勝ち取るも、用意された成功に違和感を覚え、すべての内定を辞退。その後、経営とファイナンスを学び、東大や京大でのイベントプロデュースに参画。現在は、出逢った人の才能の機会損失をゼロにするプロジェクトを立ち上げ、ご縁があった若者の衝動に愛と知性を加え、その可能性をプロデュースしている。',
+          social: {
+            instagram: 'https://www.instagram.com/sasaki.1019/',
+            x: 'https://x.com/Cat_badminton'
+          }
         },
         {
           name: '布野 雅也',
@@ -486,6 +490,26 @@ app.get('/', (c) => {
               <p class="text-lg font-semibold text-gray-700 mb-4">ストーリー</p>
               <p class="text-gray-700 leading-relaxed whitespace-pre-line">\${member.story}</p>
             </div>
+            
+            \${member.social ? \`
+              <div class="mb-6 pb-6 border-t pt-6">
+                <p class="text-lg font-semibold text-gray-700 mb-4">SNS</p>
+                <div class="flex gap-4">
+                  \${member.social.instagram ? \`
+                    <a href="\${member.social.instagram}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                      <img src="/images/icon-instagram.png" alt="Instagram" class="w-6 h-6">
+                      <span class="text-sm font-medium">Instagram</span>
+                    </a>
+                  \` : ''}
+                  \${member.social.x ? \`
+                    <a href="\${member.social.x}" target="_blank" rel="noopener noreferrer" class="flex items-center gap-2 bg-gray-100 px-4 py-2 rounded-lg hover:bg-gray-200 transition-colors">
+                      <img src="/images/icon-x.png" alt="X" class="w-6 h-6">
+                      <span class="text-sm font-medium">X</span>
+                    </a>
+                  \` : ''}
+                </div>
+              </div>
+            \` : ''}
             
             \${member.url ? \`
               <div class="mt-8">
