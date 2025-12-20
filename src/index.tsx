@@ -109,48 +109,64 @@ app.get('/', (c) => {
     </header>
     
     <!-- Hero Section -->
-    <section class="relative h-screen flex items-center justify-center hero-bg">
+    <section class="relative min-h-screen flex items-center justify-center hero-bg py-32">
         <div class="hero-gradient absolute inset-0"></div>
-        <div class="relative z-10 text-center text-white px-6 max-w-5xl fade-in">
-            <h1 class="text-5xl md:text-7xl font-bold mb-8 tracking-tight">
-                出逢った人の才能の<br>機会損失をゼロに
-            </h1>
-            <div class="text-lg md:text-xl leading-relaxed space-y-4 max-w-3xl mx-auto font-light">
-                <p>世界を変えてきたのは、特別な天才じゃない。</p>
-                <p>「誰かを喜ばせたい」という、まっすぐな想いを信じ抜いた普通の人たちだ。</p>
-                <p class="mt-8">心の中で生まれた小さな願いを、誰かのための形にする。</p>
-                <p>それが、世界を動かす「才能」になる。</p>
-                <p class="mt-8">最初は、根拠のない自信でいい。</p>
-                <p>その自由な一歩が、いつか必ず誰かの救いになると信じて進めばいい。</p>
-                <p class="mt-8 font-normal">私たちは、そんな一人ひとりの光を照らし合い、大きく育てていくチーム。</p>
-                <p class="text-2xl font-medium mt-12">せっかくの才能が、誰にも知られずに消えていく。<br>そんな悲しいことは、もう終わりにしよう。</p>
-                <p class="text-3xl md:text-4xl font-bold mt-12">全ては、出逢った人の才能の機会損失をゼロにするために!</p>
+        <div class="relative z-10 text-center text-white px-6 max-w-6xl fade-in">
+            <!-- 大胆な英語タイポグラフィ -->
+            <div class="text-4xl md:text-7xl lg:text-8xl font-bold mb-12 leading-tight tracking-tight">
+                A WORLD<br>
+                WHERE<br>
+                TALENT LOSS<br>
+                IS ZERO
+            </div>
+            
+            <div class="text-xl md:text-3xl font-light mb-16 tracking-wide">
+                出逢った人の才能の機会損失をゼロに
+            </div>
+            
+            <div class="text-base md:text-lg leading-relaxed space-y-6 max-w-3xl mx-auto font-light">
+                <p>世界を変えてきたのは、特別な天才じゃない。<br>
+                「誰かを喜ばせたい」という、まっすぐな想いを信じ抜いた普通の人たちだ。</p>
+                
+                <p class="mt-8">心の中で生まれた小さな願いを、誰かのための形にする。<br>
+                それが、世界を動かす「才能」になる。</p>
+                
+                <p class="mt-8">最初は、根拠のない自信でいい。<br>
+                その自由な一歩が、いつか必ず誰かの救いになると信じて進めばいい。</p>
+                
+                <p class="mt-12 text-lg md:text-xl font-normal">私たちは、そんな一人ひとりの光を照らし合い、<br>大きく育てていくチーム。</p>
             </div>
         </div>
     </section>
 
     <!-- Philosophy Section -->
     <section id="philosophy" class="py-32 px-6 bg-white">
-        <div class="max-w-4xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-20">Philosophy</h2>
+        <div class="max-w-5xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">PHILOSOPHY</h2>
+                <p class="text-xl md:text-2xl text-gray-600">私たちの哲学</p>
+            </div>
             
-            <div class="space-y-16">
-                <div class="text-center">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">理念</h3>
-                    <p class="text-3xl md:text-4xl font-light mb-4">「才能を覚醒させる」</p>
-                    <p class="text-gray-600 text-lg">眠っていた才能に火を灯し、その人だけの輝きを引き出す。</p>
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center p-8 bg-gray-50 rounded-lg">
+                    <div class="text-sm font-bold text-gray-500 mb-4 tracking-widest">PHILOSOPHY</div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6">理念</h3>
+                    <p class="text-2xl md:text-3xl font-light mb-6 leading-tight">才能を<br>覚醒させる</p>
+                    <p class="text-gray-600">眠っていた才能に火を灯し、その人だけの輝きを引き出す。</p>
                 </div>
 
-                <div class="text-center">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">ビジョン</h3>
-                    <p class="text-3xl md:text-4xl font-light mb-4">「出逢った人の才能の機会損失をゼロにする」</p>
-                    <p class="text-gray-600 text-lg">ハグレモノたちが主役として輝く、映画『グレイテスト・ショーマン』のような世界を創る。</p>
+                <div class="text-center p-8 bg-gray-50 rounded-lg">
+                    <div class="text-sm font-bold text-gray-500 mb-4 tracking-widest">VISION</div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6">ビジョン</h3>
+                    <p class="text-2xl md:text-3xl font-light mb-6 leading-tight">才能の<br>機会損失を<br>ゼロに</p>
+                    <p class="text-gray-600">ハグレモノたちが主役として輝く世界を創る。</p>
                 </div>
 
-                <div class="text-center">
-                    <h3 class="text-2xl md:text-3xl font-bold mb-4">ミッション</h3>
-                    <p class="text-3xl md:text-4xl font-light mb-4">「才能の化学反応を起こし続ける」</p>
-                    <p class="text-gray-600 text-lg">「お前じゃ無理」を「お前じゃなきゃ無理」に変える。</p>
+                <div class="text-center p-8 bg-gray-50 rounded-lg">
+                    <div class="text-sm font-bold text-gray-500 mb-4 tracking-widest">MISSION</div>
+                    <h3 class="text-2xl md:text-3xl font-bold mb-6">ミッション</h3>
+                    <p class="text-2xl md:text-3xl font-light mb-6 leading-tight">才能の<br>化学反応を<br>起こし続ける</p>
+                    <p class="text-gray-600">「お前じゃ無理」を「お前じゃなきゃ無理」に変える。</p>
                 </div>
             </div>
         </div>
@@ -159,7 +175,10 @@ app.get('/', (c) => {
     <!-- What We Do Section -->
     <section id="what-we-do" class="py-32 px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-20">What We Do</h2>
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">WHAT WE DO</h2>
+                <p class="text-xl md:text-2xl text-gray-600">提供価値</p>
+            </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
@@ -193,7 +212,10 @@ app.get('/', (c) => {
     <!-- Blog Section -->
     <section id="blog" class="py-32 px-6 bg-white">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-20">Blog</h2>
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">BLOG</h2>
+                <p class="text-xl md:text-2xl text-gray-600">ブログ</p>
+            </div>
             
             <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Blog posts will be loaded here -->
@@ -204,8 +226,10 @@ app.get('/', (c) => {
     <!-- Member Section -->
     <section id="member" class="py-32 px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
-            <h2 class="text-4xl md:text-5xl font-bold text-center mb-8">Member</h2>
-            <p class="text-xl text-center text-gray-600 mb-16">エンスーな人々</p>
+            <div class="text-center mb-16">
+                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">MEMBER</h2>
+                <p class="text-xl md:text-2xl text-gray-600">エンスーな人々</p>
+            </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Member 1 -->
@@ -272,6 +296,58 @@ app.get('/', (c) => {
                         <p class="text-gray-700 text-sm">才能を覚醒させる旅に、あなたも参加しませんか?</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Achievements Section -->
+    <section class="py-32 px-6 bg-white">
+        <div class="max-w-6xl mx-auto">
+            <div class="text-center mb-20">
+                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">ACHIEVEMENTS</h2>
+                <p class="text-xl md:text-2xl text-gray-600">実績</p>
+            </div>
+            
+            <div class="grid md:grid-cols-3 gap-12">
+                <div class="text-center p-8">
+                    <div class="text-5xl md:text-6xl font-bold mb-4">50+</div>
+                    <div class="text-lg text-gray-600">覚醒した才能</div>
+                </div>
+                
+                <div class="text-center p-8">
+                    <div class="text-5xl md:text-6xl font-bold mb-4">100+</div>
+                    <div class="text-lg text-gray-600">化学反応</div>
+                </div>
+                
+                <div class="text-center p-8">
+                    <div class="text-5xl md:text-6xl font-bold mb-4">∞</div>
+                    <div class="text-lg text-gray-600">可能性</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Banner Section -->
+    <section class="py-16 px-6 bg-gray-50">
+        <div class="max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-8">
+                <!-- Join Us -->
+                <a href="#member" class="block group">
+                    <div class="bg-black text-white p-12 rounded-lg transition-transform hover:-translate-y-2">
+                        <h3 class="text-3xl font-bold mb-4">JOIN US</h3>
+                        <p class="text-lg mb-6">才能を覚醒させる<br>旅に参加しませんか?</p>
+                        <span class="text-sm font-bold tracking-widest group-hover:underline">LEARN MORE →</span>
+                    </div>
+                </a>
+                
+                <!-- Contact -->
+                <a href="#blog" class="block group">
+                    <div class="bg-white border-2 border-black p-12 rounded-lg transition-transform hover:-translate-y-2">
+                        <h3 class="text-3xl font-bold mb-4">BLOG</h3>
+                        <p class="text-lg mb-6">私たちの活動や<br>想いを発信しています</p>
+                        <span class="text-sm font-bold tracking-widest group-hover:underline">READ MORE →</span>
+                    </div>
+                </a>
             </div>
         </div>
     </section>
