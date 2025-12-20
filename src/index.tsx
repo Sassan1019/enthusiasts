@@ -94,10 +94,9 @@ app.get('/', (c) => {
     
     <!-- Header -->
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
-        <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
-            <a href="/" class="flex items-center space-x-3">
-                <img src="/images/logo.png" alt="Enthusiasts" class="h-10 w-auto">
-                <span class="text-xl font-bold">Enthusiasts</span>
+        <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
+            <a href="/" class="flex items-center">
+                <img src="/images/logo-horizontal.png" alt="Enthusiasts" class="h-12 w-auto">
             </a>
             <nav class="hidden md:flex space-x-8">
                 <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
@@ -390,12 +389,11 @@ app.get('/', (c) => {
     <!-- Footer -->
     <footer class="py-16 px-6 bg-black text-white">
         <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center mb-12">
+                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
+            </div>
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <div class="flex items-center space-x-3 mb-6 md:mb-0">
-                    <img src="/images/logo.png" alt="Enthusiasts" class="h-8 w-auto filter brightness-0 invert">
-                    <span class="text-xl font-bold">Enthusiasts</span>
-                </div>
-                <nav class="flex space-x-8">
+                <nav class="flex space-x-8 mb-6 md:mb-0">
                     <a href="#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
                     <a href="#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
                     <a href="#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
@@ -477,11 +475,10 @@ app.get('/blog/:slug', async (c) => {
 </head>
 <body class="bg-white text-gray-900">
     
-    <header class="py-6 px-6 border-b bg-white">
+    <header class="py-4 px-6 border-b bg-white">
         <div class="max-w-4xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center space-x-3">
-                <img src="/images/logo.png" alt="Enthusiasts" class="h-8 w-auto">
-                <span class="text-lg font-bold">Enthusiasts</span>
+            <a href="/" class="flex items-center">
+                <img src="/images/logo-horizontal.png" alt="Enthusiasts" class="h-10 w-auto">
             </a>
             <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
         </div>
@@ -495,12 +492,11 @@ app.get('/blog/:slug', async (c) => {
 
     <footer class="py-16 px-6 bg-black text-white mt-32">
         <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center mb-12">
+                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
+            </div>
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <div class="flex items-center space-x-3 mb-6 md:mb-0">
-                    <img src="/images/logo.png" alt="Enthusiasts" class="h-8 w-auto filter brightness-0 invert">
-                    <span class="text-xl font-bold">Enthusiasts</span>
-                </div>
-                <nav class="flex space-x-8">
+                <nav class="flex space-x-8 mb-6 md:mb-0">
                     <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
                     <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
                     <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
