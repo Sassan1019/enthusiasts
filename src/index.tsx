@@ -212,6 +212,11 @@ app.get('/', (c) => {
                 </div>
 
                 <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
+                    <h3 class="text-2xl font-bold mb-4">プロデュース</h3>
+                    <p class="text-gray-600">行き場のない衝動に愛と知性を加えて、価値あるものにプロデュースします。</p>
+                </div>
+
+                <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow">
                     <h3 class="text-2xl font-bold mb-4">プロジェクト立ち上げ支援</h3>
                     <p class="text-gray-600">アイデアを形にするための具体的なサポートを提供します。</p>
                 </div>
