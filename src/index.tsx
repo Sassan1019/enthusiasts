@@ -213,6 +213,7 @@ app.get('/', (c) => {
                 <a href="#what-we-do" class="text-gray-700 hover:text-black transition-colors">What We Do</a>
                 <a href="#member" class="text-gray-700 hover:text-black transition-colors">Member</a>
                 <a href="#blog" class="text-gray-700 hover:text-black transition-colors">Blog</a>
+                <a href="/contact" class="text-gray-700 hover:text-black transition-colors">Contact</a>
             </nav>
         </div>
     </header>
@@ -549,6 +550,7 @@ app.get('/', (c) => {
                     <a href="#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
                     <a href="#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
                     <a href="#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                    <a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
                 </nav>
             </div>
             <div class="border-t border-gray-800 pt-8 text-center">
@@ -865,6 +867,95 @@ app.get('/', (c) => {
         loadBlogPosts()
       })
     </script>
+</body>
+</html>
+  `)
+})
+
+// Contact page
+app.get('/contact', (c) => {
+  return c.html(`
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>お問い合わせ | 才能を覚醒させる</title>
+    <meta name="description" content="お問い合わせフォーム - 才能を覚醒させる">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <style>
+      body {
+        font-family: 'Noto Sans JP', sans-serif;
+      }
+      h1, h2, h3, h4, h5, h6 {
+        font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      }
+      .hubspot-iframe {
+        border: none;
+        width: 100%;
+        min-height: 800px;
+      }
+    </style>
+</head>
+<body class="bg-white text-gray-900">
+    
+    <!-- Header -->
+    <header class="py-4 px-6 border-b bg-white">
+        <div class="max-w-4xl mx-auto flex items-center justify-between">
+            <a href="/" class="flex items-center">
+                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-10 md:h-12 w-auto">
+            </a>
+            <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
+        </div>
+    </header>
+
+    <!-- Contact Section -->
+    <section class="py-16 px-6">
+        <div class="max-w-3xl mx-auto">
+            <div class="text-center mb-12">
+                <h1 class="text-3xl md:text-4xl font-bold mb-4 tracking-tight">CONTACT</h1>
+                <p class="text-base md:text-lg text-gray-600">お問い合わせ</p>
+            </div>
+            
+            <div class="bg-white rounded-lg">
+                <p class="text-gray-700 mb-8 text-center">
+                    ご質問やご相談など、お気軽にお問い合わせください。
+                </p>
+                
+                <!-- HubSpot Form iframe -->
+                <iframe 
+                    src="https://share.hsforms.com/1n1pvJnMaT9q5XYEYnL7Txwczmoh" 
+                    class="hubspot-iframe"
+                    title="お問い合わせフォーム">
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-16 px-6 bg-black text-white mt-32">
+        <div class="max-w-6xl mx-auto">
+            <div class="flex flex-col items-center mb-12">
+                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
+            </div>
+            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
+                <nav class="flex space-x-8 mb-6 md:mb-0">
+                    <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
+                    <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
+                    <a href="/#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
+                    <a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
+                </nav>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
+                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
 </body>
 </html>
   `)
