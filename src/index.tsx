@@ -333,30 +333,44 @@ app.get('/', (c) => {
             
             <!-- Slideshow -->
             <div class="mb-12">
-                <div class="max-w-4xl mx-auto">
+                <div class="max-w-4xl mx-auto relative">
+                    <!-- Previous Button (in left margin) -->
+                    <button onclick="previousSlide()" class="hidden md:flex absolute -left-16 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all items-center justify-center" aria-label="前のスライド">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                        </svg>
+                    </button>
+                    
                     <div class="slideshow-container relative">
-                        <!-- Previous Button -->
-                        <button onclick="previousSlide()" class="absolute left-2 md:left-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="前のスライド">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </button>
-                        
                         <div id="slideshow-content" class="min-h-[300px]">
                             <!-- Slides will be loaded here -->
                         </div>
-                        
-                        <!-- Next Button -->
-                        <button onclick="nextSlide()" class="absolute right-2 md:right-0 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="次のスライド">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
                         
                         <!-- Dots Navigation -->
                         <div id="slideshow-dots" class="flex justify-center gap-2 mt-4">
                             <!-- Dots will be loaded here -->
                         </div>
+                    </div>
+                    
+                    <!-- Next Button (in right margin) -->
+                    <button onclick="nextSlide()" class="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all items-center justify-center" aria-label="次のスライド">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                    
+                    <!-- Mobile Navigation Buttons -->
+                    <div class="flex md:hidden justify-center gap-4 mt-4">
+                        <button onclick="previousSlide()" class="bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="前のスライド">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                            </svg>
+                        </button>
+                        <button onclick="nextSlide()" class="bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="次のスライド">
+                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                            </svg>
+                        </button>
                     </div>
                 </div>
             </div>
