@@ -1009,8 +1009,10 @@ app.get('/', (c) => {
       }
       
       // Secret command: Click header logo 5 times to show admin login
+      // Single click: Navigate to TOP
       let logoClickCount = 0
       let logoClickTimer = null
+      let singleClickTimer = null
       
       const headerLogo = document.getElementById('header-logo')
       if (headerLogo) {
@@ -1019,6 +1021,9 @@ app.get('/', (c) => {
           e.stopPropagation()
           
           logoClickCount++
+          
+          // Clear single click timer if multiple clicks detected
+          clearTimeout(singleClickTimer)
           
           // Reset counter after 2 seconds of inactivity
           clearTimeout(logoClickTimer)
@@ -1029,7 +1034,16 @@ app.get('/', (c) => {
           // Show admin login modal after 5 clicks
           if (logoClickCount === 5) {
             logoClickCount = 0
+            clearTimeout(singleClickTimer)
             showAdminLogin()
+          } else {
+            // Set timer for single click navigation
+            singleClickTimer = setTimeout(() => {
+              if (logoClickCount === 1) {
+                window.location.href = '/'
+              }
+              logoClickCount = 0
+            }, 300) // Wait 300ms to distinguish from multi-click
           }
         })
       }
