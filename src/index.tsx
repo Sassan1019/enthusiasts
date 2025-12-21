@@ -329,7 +329,7 @@ app.get('/', (c) => {
     <header class="fixed top-0 left-0 right-0 z-50 bg-white/90 backdrop-blur-sm shadow-sm">
         <div class="max-w-7xl mx-auto px-6 py-3 flex items-center justify-between">
             <a href="/" class="flex items-center">
-                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-10 md:h-12 w-auto">
+                <img src="/images/logo-header.png" alt="Enthusiasts" id="header-logo" class="h-10 md:h-12 w-auto cursor-pointer">
             </a>
             <nav class="hidden md:flex space-x-8">
                 <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
@@ -685,7 +685,7 @@ app.get('/', (c) => {
     <footer class="py-16 px-6 bg-black text-white">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col items-center mb-12">
-                <img src="/images/logo-vertical.png" alt="Enthusiasts" id="footer-logo" class="h-32 w-auto mb-8 filter brightness-0 invert cursor-pointer">
+                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <nav class="flex space-x-8 mb-6 md:mb-0">
@@ -1008,13 +1008,16 @@ app.get('/', (c) => {
         }
       }
       
-      // Secret command: Click footer logo 5 times to show admin login
+      // Secret command: Click header logo 5 times to show admin login
       let logoClickCount = 0
       let logoClickTimer = null
       
-      const footerLogo = document.getElementById('footer-logo')
-      if (footerLogo) {
-        footerLogo.addEventListener('click', () => {
+      const headerLogo = document.getElementById('header-logo')
+      if (headerLogo) {
+        headerLogo.addEventListener('click', (e) => {
+          e.preventDefault()
+          e.stopPropagation()
+          
           logoClickCount++
           
           // Reset counter after 2 seconds of inactivity
