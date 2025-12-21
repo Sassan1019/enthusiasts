@@ -684,9 +684,6 @@ app.get('/', (c) => {
     <!-- Footer -->
     <footer class="py-16 px-6 bg-black text-white">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col items-center mb-12">
-                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
-            </div>
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <nav class="flex space-x-8 mb-6 md:mb-0">
                     <a href="#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
@@ -1201,9 +1198,7 @@ app.get('/contact', (c) => {
     <!-- Footer -->
     <footer class="py-16 px-6 bg-black text-white mt-32">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col items-center mb-12">
-                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
-            </div>
+
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <nav class="flex space-x-8 mb-6 md:mb-0">
                     <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
@@ -1350,9 +1345,7 @@ app.get('/privacy', (c) => {
     <!-- Footer -->
     <footer class="py-16 px-6 bg-black text-white mt-32">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col items-center mb-12">
-                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
-            </div>
+
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <nav class="flex space-x-8 mb-6 md:mb-0">
                     <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
@@ -1660,9 +1653,7 @@ app.get('/blog/:slug', async (c) => {
 
     <footer class="py-16 px-6 bg-black text-white mt-32">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col items-center mb-12">
-                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
-            </div>
+
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <nav class="flex space-x-8 mb-6 md:mb-0">
                     <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
