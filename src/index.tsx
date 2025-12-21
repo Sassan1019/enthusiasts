@@ -606,6 +606,26 @@ app.get('/', (c) => {
                     </div>
                 </div>
             </div>
+            
+            <!-- Admin Login Modal -->
+            <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 px-4">
+                <div class="bg-white rounded-lg max-w-md w-full p-8 relative">
+                    <button onclick="closeAdminLogin()" class="absolute top-4 right-4 text-gray-400 hover:text-gray-600 text-3xl">&times;</button>
+                    <h2 class="text-2xl font-bold mb-6 text-center">管理者ログイン</h2>
+                    <form id="admin-login-form" class="space-y-4">
+                        <div>
+                            <label for="admin-password" class="block text-sm font-medium text-gray-700 mb-2">パスワード</label>
+                            <input type="password" id="admin-password" name="password" required
+                                   class="w-full px-4 py-3 border border-gray-300 rounded focus:ring-2 focus:ring-gray-900 focus:border-transparent outline-none">
+                        </div>
+                        <div id="admin-login-error" class="hidden text-red-600 text-sm"></div>
+                        <button type="submit" id="admin-login-btn"
+                                class="w-full bg-gray-900 text-white py-3 px-6 rounded hover:bg-gray-800 transition-colors font-medium">
+                            ログイン
+                        </button>
+                    </form>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -665,7 +685,7 @@ app.get('/', (c) => {
     <footer class="py-16 px-6 bg-black text-white">
         <div class="max-w-6xl mx-auto">
             <div class="flex flex-col items-center mb-12">
-                <img src="/images/logo-vertical.png" alt="Enthusiasts" class="h-32 w-auto mb-8 filter brightness-0 invert">
+                <img src="/images/logo-vertical.png" alt="Enthusiasts" id="footer-logo" class="h-32 w-auto mb-8 filter brightness-0 invert cursor-pointer">
             </div>
             <div class="flex flex-col md:flex-row justify-between items-center mb-8">
                 <nav class="flex space-x-8 mb-6 md:mb-0">
@@ -987,6 +1007,73 @@ app.get('/', (c) => {
           icon.style.transform = 'rotate(0deg)'
         }
       }
+      
+      // Secret command: Click footer logo 5 times to show admin login
+      let logoClickCount = 0
+      let logoClickTimer = null
+      
+      const footerLogo = document.getElementById('footer-logo')
+      if (footerLogo) {
+        footerLogo.addEventListener('click', () => {
+          logoClickCount++
+          
+          // Reset counter after 2 seconds of inactivity
+          clearTimeout(logoClickTimer)
+          logoClickTimer = setTimeout(() => {
+            logoClickCount = 0
+          }, 2000)
+          
+          // Show admin login modal after 5 clicks
+          if (logoClickCount === 5) {
+            logoClickCount = 0
+            showAdminLogin()
+          }
+        })
+      }
+      
+      function showAdminLogin() {
+        const modal = document.getElementById('adminLoginModal')
+        modal.classList.remove('hidden')
+        modal.classList.add('flex')
+        document.body.style.overflow = 'hidden'
+      }
+      
+      function closeAdminLogin() {
+        const modal = document.getElementById('adminLoginModal')
+        modal.classList.remove('flex')
+        modal.classList.add('hidden')
+        document.body.style.overflow = ''
+        document.getElementById('admin-password').value = ''
+        document.getElementById('admin-login-error').classList.add('hidden')
+      }
+      
+      // Admin login form submission
+      document.getElementById('admin-login-form').addEventListener('submit', async (e) => {
+        e.preventDefault()
+        
+        const password = document.getElementById('admin-password').value
+        const loginBtn = document.getElementById('admin-login-btn')
+        const loginError = document.getElementById('admin-login-error')
+        
+        loginBtn.disabled = true
+        loginBtn.textContent = 'ログイン中...'
+        loginError.classList.add('hidden')
+        
+        try {
+          const response = await axios.post('/api/admin/login', { password })
+          const authToken = response.data.token
+          localStorage.setItem('admin_token', authToken)
+          
+          // Redirect to admin panel
+          window.location.href = '/admin/contacts'
+        } catch (error) {
+          loginError.textContent = 'パスワードが正しくありません'
+          loginError.classList.remove('hidden')
+        } finally {
+          loginBtn.disabled = false
+          loginBtn.textContent = 'ログイン'
+        }
+      })
       
       document.addEventListener('DOMContentLoaded', () => {
         loadSlideshow()
