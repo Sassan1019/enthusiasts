@@ -698,7 +698,7 @@ app.get('/', (c) => {
                 <p class="text-sm text-gray-400 mb-2">
                     <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
                 </p>
-                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+                <p class="text-sm text-gray-400">&copy; 2025 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1213,7 +1213,7 @@ app.get('/contact', (c) => {
                 <p class="text-sm text-gray-400 mb-2">
                     <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
                 </p>
-                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+                <p class="text-sm text-gray-400">&copy; 2025 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1360,7 +1360,7 @@ app.get('/privacy', (c) => {
                 <p class="text-sm text-gray-400 mb-2">
                     <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
                 </p>
-                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+                <p class="text-sm text-gray-400">&copy; 2025 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
     </footer>
@@ -1667,7 +1667,7 @@ app.get('/blog/:slug', async (c) => {
                 <p class="text-sm text-gray-400 mb-2">
                     <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
                 </p>
-                <p class="text-sm text-gray-400">&copy; 2024 Enthusiasts. All rights reserved.</p>
+                <p class="text-sm text-gray-400">&copy; 2025 Enthusiasts. All rights reserved.</p>
             </div>
         </div>
     </footer>
