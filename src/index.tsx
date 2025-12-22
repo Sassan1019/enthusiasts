@@ -577,11 +577,11 @@ app.get('/', (c) => {
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Join Us -->
-                <a href="#member" class="block group">
+                <a href="/contact" class="block group">
                     <div class="bg-black text-white p-12 rounded-lg transition-transform hover:-translate-y-2">
                         <h3 class="text-3xl font-bold mb-4">JOIN US</h3>
                         <p class="text-lg mb-6">才能を覚醒させる<br>旅に参加しませんか?</p>
-                        <span class="text-sm font-bold tracking-widest group-hover:underline">LEARN MORE →</span>
+                        <span class="text-sm font-bold tracking-widest group-hover:underline">CONTACT →</span>
                     </div>
                 </a>
                 
