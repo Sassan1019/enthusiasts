@@ -746,17 +746,11 @@ app.get('/', (c) => {
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
             
             return \`
-              <a href="\${href}" \${target} class="block bg-white rounded border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-md transition-all group">
+              <a href="\${href}" \${target} class="block relative bg-white rounded border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-md transition-all group">
                 <!-- Image (note.com style aspect ratio) -->
                 <div class="relative w-full bg-gray-100" style="padding-bottom: 52%;">
                   \${post.thumbnail_url ? \`
                     <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover">
-                    <div class="absolute top-3 left-3 bg-white rounded shadow-sm px-2 py-1 flex items-center">
-                      <img src="/images/note-logo-black.png" alt="note" class="h-3.5">
-                    </div>
-                    <div class="absolute bottom-3 right-3">
-                      <img src="/images/note-logo-black.png" alt="note" class="h-6 opacity-90 drop-shadow-lg">
-                    </div>
                   \` : \`
                     <div class="absolute inset-0 flex items-center justify-center bg-gray-50">
                       <img src="/images/note-logo-black.png" alt="note" class="w-24 h-auto opacity-10">
@@ -771,6 +765,11 @@ app.get('/', (c) => {
                   <div class="flex items-center gap-2 text-xs text-gray-400 mt-auto">
                     <span>\${new Date(post.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                   </div>
+                </div>
+                
+                <!-- Note logo in bottom-right of card -->
+                <div class="absolute bottom-3 right-3">
+                  <img src="/images/note-logo-black.png" alt="note" class="h-6 opacity-80">
                 </div>
               </a>
             \`
