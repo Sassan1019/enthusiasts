@@ -258,6 +258,8 @@ app.get('/', (c) => {
             <a href="/" class="flex items-center">
                 <img src="/images/logo-header.png" alt="Enthusiasts" id="header-logo" class="h-10 md:h-12 w-auto cursor-pointer">
             </a>
+            
+            <!-- Desktop Navigation -->
             <nav class="hidden md:flex space-x-8">
                 <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
                 <a href="#what-we-do" class="text-gray-700 hover:text-black transition-colors">What We Do</a>
@@ -265,46 +267,64 @@ app.get('/', (c) => {
                 <a href="#blog" class="text-gray-700 hover:text-black transition-colors">Blog</a>
                 <a href="/contact" class="text-gray-700 hover:text-black transition-colors">Contact</a>
             </nav>
+            
+            <!-- Mobile Hamburger Button -->
+            <button id="mobile-menu-btn" class="md:hidden p-2 text-gray-700 hover:text-black transition-colors" aria-label="メニュー">
+                <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                </svg>
+            </button>
         </div>
+        
+        <!-- Mobile Navigation Menu -->
+        <nav id="mobile-menu" class="hidden md:hidden bg-white border-t border-gray-200">
+            <div class="px-6 py-4 space-y-3">
+                <a href="#philosophy" class="block text-gray-700 hover:text-black transition-colors py-2">Philosophy</a>
+                <a href="#what-we-do" class="block text-gray-700 hover:text-black transition-colors py-2">What We Do</a>
+                <a href="#member" class="block text-gray-700 hover:text-black transition-colors py-2">Member</a>
+                <a href="#blog" class="block text-gray-700 hover:text-black transition-colors py-2">Blog</a>
+                <a href="/contact" class="block text-gray-700 hover:text-black transition-colors py-2">Contact</a>
+            </div>
+        </nav>
     </header>
     
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center hero-bg py-32">
+    <section class="relative min-h-screen flex items-center justify-center hero-bg py-20 md:py-32">
         <div class="hero-gradient absolute inset-0"></div>
-        <div class="relative z-10 text-center text-white px-6 max-w-6xl fade-in">
+        <div class="relative z-10 text-center text-white px-4 md:px-6 max-w-6xl fade-in">
             <!-- 大胆な英語タイポグラフィ -->
-            <div class="text-4xl md:text-7xl lg:text-8xl font-bold mb-12 leading-tight tracking-tight">
+            <div class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight tracking-tight">
                 A WORLD<br>
                 WHERE<br>
                 TALENT LOSS<br>
                 IS ZERO
             </div>
             
-            <div class="text-xl md:text-3xl font-light mb-16 tracking-wide">
+            <div class="text-lg sm:text-xl md:text-3xl font-light mb-12 md:mb-16 tracking-wide">
                 出逢った人の才能の機会損失をゼロに
             </div>
             
-            <div class="text-base md:text-lg leading-relaxed space-y-6 max-w-3xl mx-auto font-light">
+            <div class="text-sm sm:text-base md:text-lg leading-relaxed space-y-4 md:space-y-6 max-w-3xl mx-auto font-light">
                 <p>世界を変えてきたのは、特別な天才じゃない。<br>
                 「誰かを喜ばせたい」という、まっすぐな想いを信じ抜いた普通の人たちだ。</p>
                 
-                <p class="mt-8">心の中で生まれた小さな願いを、誰かのための形にする。<br>
+                <p class="mt-6 md:mt-8">心の中で生まれた小さな願いを、誰かのための形にする。<br>
                 それが、世界を動かす「才能」になる。</p>
                 
-                <p class="mt-8">最初は、根拠のない自信でいい。<br>
+                <p class="mt-6 md:mt-8">最初は、根拠のない自信でいい。<br>
                 その自由な一歩が、いつか必ず誰かの救いになると信じて進めばいい。</p>
                 
-                <p class="mt-12 text-lg md:text-xl font-normal">私たちは、そんな一人ひとりの光を照らし合い、<br>大きく育てていくチーム。</p>
+                <p class="mt-8 md:mt-12 text-base sm:text-lg md:text-xl font-normal">私たちは、そんな一人ひとりの光を照らし合い、<br class="hidden sm:block">大きく育てていくチーム。</p>
             </div>
         </div>
     </section>
 
     <!-- Philosophy Section -->
-    <section id="philosophy" class="py-32 px-6 bg-white">
+    <section id="philosophy" class="py-16 md:py-32 px-4 md:px-6 bg-white">
         <div class="max-w-5xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">PHILOSOPHY</h2>
-                <p class="text-xl md:text-2xl text-gray-600">私たちの哲学</p>
+            <div class="text-center mb-12 md:mb-20">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">PHILOSOPHY</h2>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600">私たちの哲学</p>
             </div>
             
             <div class="grid md:grid-cols-3 gap-12">
@@ -333,11 +353,11 @@ app.get('/', (c) => {
     </section>
 
     <!-- What We Do Section -->
-    <section id="what-we-do" class="py-32 px-6 bg-gray-50">
+    <section id="what-we-do" class="py-16 md:py-32 px-4 md:px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">WHAT WE DO</h2>
-                <p class="text-xl md:text-2xl text-gray-600">提供価値</p>
+            <div class="text-center mb-12 md:mb-20">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">WHAT WE DO</h2>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600">提供価値</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -375,17 +395,16 @@ app.get('/', (c) => {
     </section>
 
     <!-- Blog Section -->
-    <section id="blog" class="py-20 px-6 bg-white">
+    <section id="blog" class="py-16 md:py-20 px-4 md:px-6 bg-white">
         <div class="max-w-7xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-gray-800">BLOG</h2>
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight text-gray-800">BLOG</h2>
                 <p class="text-sm md:text-base text-gray-500">ブログ</p>
             </div>
             
-            <!-- Slideshow with generous margins -->
-            <!-- note-style article cards (3 columns) -->
-            <div class="max-w-6xl mx-auto px-6">
-                <div id="blog-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
+            <!-- note-style article cards -->
+            <div class="max-w-6xl mx-auto px-0 sm:px-4 md:px-6">
+                <div id="blog-cards" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 md:gap-5">
                     <!-- Cards will be loaded here -->
                 </div>
             </div>
@@ -403,11 +422,11 @@ app.get('/', (c) => {
     </section>
 
     <!-- Member Section -->
-    <section id="member" class="py-32 px-6 bg-gray-50">
+    <section id="member" class="py-16 md:py-32 px-4 md:px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-16">
-                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">MEMBER</h2>
-                <p class="text-xl md:text-2xl text-gray-600">エンスーな人々</p>
+            <div class="text-center mb-12 md:mb-16">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">MEMBER</h2>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600">エンスーな人々</p>
             </div>
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -728,6 +747,31 @@ app.get('/', (c) => {
       // Secret command: Click header logo 5 times to show admin login
       let currentSlide = 0
       let slideInterval
+      
+      // Mobile menu toggle
+      const mobileMenuBtn = document.getElementById('mobile-menu-btn')
+      const mobileMenu = document.getElementById('mobile-menu')
+      
+      if (mobileMenuBtn && mobileMenu) {
+        mobileMenuBtn.addEventListener('click', () => {
+          mobileMenu.classList.toggle('hidden')
+        })
+        
+        // Close menu when clicking a link
+        const mobileLinks = mobileMenu.querySelectorAll('a')
+        mobileLinks.forEach(link => {
+          link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden')
+          })
+        })
+        
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+          if (!mobileMenuBtn.contains(e.target) && !mobileMenu.contains(e.target)) {
+            mobileMenu.classList.add('hidden')
+          }
+        })
+      }
       
       // Load blog cards (note.com style)
       async function loadBlogCards() {

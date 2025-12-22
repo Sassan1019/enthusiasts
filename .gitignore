@@ -29,3 +29,5 @@ logs/
 
 # OS files
 .DS_Store
+.env.local
+.cloudflare-token.txt
