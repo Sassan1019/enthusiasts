@@ -12,6 +12,8 @@ const app = new Hono<{ Bindings: Bindings }>()
 // Serve static files (images, etc.)
 app.use('/images/*', serveStatic({ root: './' }))
 app.use('/manifest.json', serveStatic({ path: './manifest.json' }))
+app.use('/robots.txt', serveStatic({ path: './robots.txt' }))
+app.use('/sitemap.xml', serveStatic({ path: './sitemap.xml' }))
 
 app.use('/api/*', cors())
 
@@ -199,7 +201,10 @@ app.get('/', (c) => {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Enthusiasts｜出逢った人の才能の機会損失をゼロに</title>
-    <meta name="description" content="出逢った人の才能の機会損失をゼロにする。才能の化学反応を起こし続けるプロジェクト。">
+    <meta name="description" content="エンスー（Enthusiasts）は才能を覚醒させるプロジェクト。出逢った人の才能の機会損失をゼロに。1on1コーチング、コミュニティ運営、イベント開催で才能の化学反応を起こし続ける。">
+    <meta name="keywords" content="エンスー,Enthusiasts,才能,機会損失,覚醒,コーチング,コミュニティ,イベント,STAR'Z DASH,佐々木慧,才能開発,キャリア支援,自己実現">
+    <meta name="author" content="Enthusiasts">
+    <link rel="canonical" href="https://enthusiasts.jp/">
     
     <!-- Favicon -->
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon.png">
@@ -208,11 +213,37 @@ app.get('/', (c) => {
     <link rel="manifest" href="/manifest.json">
     
     <!-- OGP -->
+    <meta property="og:site_name" content="Enthusiasts">
     <meta property="og:title" content="Enthusiasts｜出逢った人の才能の機会損失をゼロに">
-    <meta property="og:description" content="出逢った人の才能の機会損失をゼロにする">
+    <meta property="og:description" content="エンスー（Enthusiasts）は才能を覚醒させるプロジェクト。出逢った人の才能の機会損失をゼロに。">
     <meta property="og:image" content="https://enthusiasts.jp/images/logo-horizontal.png">
+    <meta property="og:url" content="https://enthusiasts.jp/">
     <meta property="og:type" content="website">
+    <meta property="og:locale" content="ja_JP">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Enthusiasts｜出逢った人の才能の機会損失をゼロに">
+    <meta name="twitter:description" content="エンスー（Enthusiasts）は才能を覚醒させるプロジェクト。">
+    <meta name="twitter:image" content="https://enthusiasts.jp/images/logo-horizontal.png">
+    
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "Organization",
+      "name": "Enthusiasts",
+      "alternateName": "エンスー",
+      "url": "https://enthusiasts.jp",
+      "logo": "https://enthusiasts.jp/images/logo-horizontal.png",
+      "description": "出逢った人の才能の機会損失をゼロにする。才能の化学反応を起こし続けるプロジェクト。",
+      "foundingDate": "2024",
+      "slogan": "出逢った人の才能の機会損失をゼロに",
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "contactType": "Customer Service",
+        "url": "https://enthusiasts.jp/contact"
+      }
+    }
+    </script>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -224,6 +255,17 @@ app.get('/', (c) => {
       }
       h1, h2, h3, h4, h5, h6 {
         font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
+      }
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border-width: 0;
       }
       .hero-bg {
         background-image: url('/images/hero-background.jpg');
@@ -322,6 +364,9 @@ app.get('/', (c) => {
     <section class="relative min-h-[70vh] md:min-h-screen flex items-center justify-center hero-bg py-16 md:py-32">
         <div class="hero-gradient absolute inset-0"></div>
         <div class="relative z-10 text-center text-white px-4 md:px-6 max-w-6xl fade-in">
+            <!-- Hidden h1 for SEO -->
+            <h1 class="sr-only">Enthusiasts（エンスー）｜出逢った人の才能の機会損失をゼロに - 才能を覚醒させるプロジェクト</h1>
+            
             <!-- 大胆な英語タイポグラフィ -->
             <div class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight tracking-tight">
                 A WORLD<br>

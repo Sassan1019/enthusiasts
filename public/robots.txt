@@ -1,0 +1,10 @@
+# Enthusiasts - robots.txt
+User-agent: *
+Allow: /
+Disallow: /api/
+
+# Sitemap
+Sitemap: https://enthusiasts.jp/sitemap.xml
+
+# Crawl-delay (optional, for considerate crawling)
+Crawl-delay: 1
