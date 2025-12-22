@@ -528,28 +528,65 @@ app.get('/', (c) => {
         </div>
     </section>
 
-    <!-- Achievements Section -->
-    <section class="py-32 px-6 bg-white">
+    <!-- Our Work Section -->
+    <section id="our-work" class="py-16 md:py-32 px-4 md:px-6 bg-white">
         <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-20">
-                <h2 class="text-5xl md:text-7xl font-bold mb-6 tracking-tight">ACHIEVEMENTS</h2>
-                <p class="text-xl md:text-2xl text-gray-600">実績</p>
+            <div class="text-center mb-12 md:mb-20">
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">OUR WORK</h2>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600">私たちの衝動</p>
             </div>
             
-            <div class="grid md:grid-cols-3 gap-12">
-                <div class="text-center p-8">
-                    <div class="text-5xl md:text-6xl font-bold mb-4">50+</div>
-                    <div class="text-lg text-gray-600">覚醒した才能</div>
+            <!-- STAR'Z DASH!! -->
+            <div class="mb-16 md:mb-24">
+                <div class="bg-gradient-to-br from-black to-gray-800 rounded-xl overflow-hidden shadow-2xl">
+                    <div class="grid md:grid-cols-2 gap-0">
+                        <!-- Image/Visual Side -->
+                        <div class="relative h-64 md:h-auto bg-gradient-to-br from-purple-600 to-blue-600 flex items-center justify-center p-8">
+                            <div class="text-center text-white">
+                                <div class="text-4xl md:text-6xl font-bold mb-4 tracking-tight">⭐</div>
+                                <h3 class="text-3xl md:text-4xl font-bold tracking-wide">STAR'Z DASH!!</h3>
+                            </div>
+                        </div>
+                        
+                        <!-- Content Side -->
+                        <div class="p-8 md:p-12 text-white">
+                            <div class="inline-block bg-purple-600 text-white text-xs font-bold px-3 py-1 rounded-full mb-4">NOW AVAILABLE</div>
+                            <h3 class="text-2xl md:text-3xl font-bold mb-4">STAR'Z DASH!!</h3>
+                            <p class="text-gray-300 mb-6 leading-relaxed">
+                                才能を持つ若者たちが、自分の可能性に気づき、一歩を踏み出すためのプログラム。
+                                <br><br>
+                                「お前じゃ無理」を「お前じゃなきゃ無理」に変える、挑戦の場。
+                            </p>
+                            <a href="#" class="inline-flex items-center gap-2 text-white hover:text-purple-300 transition-colors font-bold">
+                                詳細を見る
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
                 </div>
-                
-                <div class="text-center p-8">
-                    <div class="text-5xl md:text-6xl font-bold mb-4">100+</div>
-                    <div class="text-lg text-gray-600">化学反応</div>
-                </div>
-                
-                <div class="text-center p-8">
-                    <div class="text-5xl md:text-6xl font-bold mb-4">∞</div>
-                    <div class="text-lg text-gray-600">可能性</div>
+            </div>
+            
+            <!-- Coming Soon Projects -->
+            <div>
+                <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Coming Soon</h3>
+                <div class="grid md:grid-cols-2 gap-6">
+                    <!-- Coming Soon Card 1 -->
+                    <div class="bg-gray-50 rounded-lg p-8 border-2 border-dashed border-gray-300 text-center">
+                        <div class="text-4xl mb-4">🚀</div>
+                        <div class="inline-block bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full mb-3">COMING SOON</div>
+                        <h4 class="text-xl font-bold mb-3 text-gray-900">新プロジェクト準備中</h4>
+                        <p class="text-gray-600 text-sm">才能の化学反応を加速させる、新しい挑戦が始まります。</p>
+                    </div>
+                    
+                    <!-- Coming Soon Card 2 -->
+                    <div class="bg-gray-50 rounded-lg p-8 border-2 border-dashed border-gray-300 text-center">
+                        <div class="text-4xl mb-4">✨</div>
+                        <div class="inline-block bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full mb-3">COMING SOON</div>
+                        <h4 class="text-xl font-bold mb-3 text-gray-900">さらなる企画を構想中</h4>
+                        <p class="text-gray-600 text-sm">あなたの才能を覚醒させる、新しい機会をお楽しみに。</p>
+                    </div>
                 </div>
             </div>
         </div>
