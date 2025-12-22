@@ -248,30 +248,6 @@ app.get('/', (c) => {
         from { opacity: 0; transform: translateY(30px); }
         to { opacity: 1; transform: translateY(0); }
       }
-      .slideshow-container {
-        position: relative;
-        overflow: hidden;
-      }
-      .slide {
-        display: none;
-        animation: slideInFade 0.5s ease;
-      }
-      .slide.active {
-        display: block;
-      }
-      @keyframes slideInFade {
-        from { opacity: 0; }
-        to { opacity: 1; }
-      }
-      .slide-dot {
-        cursor: pointer;
-        transition: all 0.3s ease;
-        background-color: #d1d5db;
-      }
-      .slide-dot.active {
-        background-color: #000000;
-        transform: scale(1.4);
-      }
     </style>
 </head>
 <body class="bg-white text-gray-900 smooth-scroll">
@@ -407,32 +383,15 @@ app.get('/', (c) => {
             </div>
             
             <!-- Slideshow with generous margins -->
-            <div class="mb-16">
-                <div class="max-w-4xl mx-auto px-16 md:px-24 relative">
-                    <!-- Previous Button (in generous left margin) -->
-                    <button onclick="previousSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black hover:bg-gray-800 text-white rounded-full p-3 shadow-lg transition-all flex items-center justify-center" aria-label="前のスライド">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                        </svg>
-                    </button>
-                    
-                    <div class="slideshow-container relative">
-                        <div id="slideshow-content" class="h-[280px] md:h-[240px]">
-                            <!-- Slides will be loaded here -->
-                        </div>
-                    </div>
-                    
-                    <!-- Next Button (in generous right margin) -->
-                    <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black hover:bg-gray-800 text-white rounded-full p-3 shadow-lg transition-all flex items-center justify-center" aria-label="次のスライド">
-                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                        </svg>
-                    </button>
+            <!-- note-style article cards (3 columns) -->
+            <div class="max-w-6xl mx-auto px-6">
+                <div id="blog-cards" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Cards will be loaded here -->
                 </div>
             </div>
             
             <!-- Read More on note.com Button -->
-            <div class="text-center mb-8">
+            <div class="text-center mt-12 mb-8">
                 <a href="https://note.com/sasaki1019/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3 bg-black hover:bg-gray-800 text-white rounded transition-all font-medium">
                     <span>他の記事を読む</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -770,102 +729,53 @@ app.get('/', (c) => {
       let currentSlide = 0
       let slideInterval
       
-      async function loadSlideshow() {
+      // Load blog cards (note.com style)
+      async function loadBlogCards() {
         try {
           const response = await axios.get('/api/posts')
-          const posts = response.data.posts.slice(0, 3) // Get top 3 posts
+          const posts = response.data.posts.slice(0, 3) // Get top 3 articles
           
           if (posts.length === 0) return
           
-          const slideshowContent = document.getElementById('slideshow-content')
+          const blogCards = document.getElementById('blog-cards')
           
-          // Create slides
-          slideshowContent.innerHTML = posts.map((post, index) => {
+          // Create note-style cards (vertical layout)
+          blogCards.innerHTML = posts.map(post => {
             const isNote = post.source === 'note'
             const href = isNote ? post.external_url : \`/blog/\${post.slug}\`
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
-            const displayTitle = post.title.length > 12 ? post.title.substring(0, 12) + '...' : post.title
+            const displayTitle = post.title.length > 30 ? post.title.substring(0, 30) + '...' : post.title
             
             return \`
-              <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
-                <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all h-56 md:h-64">
-                  <div class="grid md:grid-cols-2 gap-0 h-full">
-                    <div class="h-full">
-                      \${post.thumbnail_url ? \`
-                        <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-full object-cover">
-                      \` : \`
-                        <div class="w-full h-full bg-gray-100 flex items-center justify-center">
-                          <span class="text-gray-300 text-2xl">📝</span>
-                        </div>
-                      \`}
+              <a href="\${href}" \${target} class="block bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-all group">
+                <!-- Image (16:9 aspect ratio) -->
+                <div class="relative w-full" style="padding-bottom: 56.25%;">
+                  \${post.thumbnail_url ? \`
+                    <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-95 transition-opacity">
+                  \` : \`
+                    <div class="absolute inset-0 bg-gray-100 flex items-center justify-center">
+                      <span class="text-gray-300 text-3xl">📝</span>
                     </div>
-                    <div class="p-4 md:p-5 flex flex-col justify-center h-full overflow-hidden">
-                      \${isNote ? '<span class="inline-block bg-black text-white text-xs px-2 py-0.5 rounded mb-2 w-fit">note</span>' : ''}
-                      <h3 class="text-sm md:text-base font-semibold mb-2 leading-snug text-gray-900">\${displayTitle}</h3>
-                      <p class="text-gray-600 mb-2 text-xs leading-relaxed line-clamp-3">\${post.excerpt || ''}</p>
-                      <p class="text-xs text-gray-400 mb-2">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
-                      <span class="text-gray-600 text-xs inline-flex items-center gap-1">
-                        続きを読む →
-                      </span>
-                    </div>
+                  \`}
+                </div>
+                
+                <!-- Content -->
+                <div class="p-4">
+                  <h3 class="font-bold text-base mb-2 text-gray-900 line-clamp-2 leading-snug group-hover:text-gray-700 transition-colors">\${displayTitle}</h3>
+                  <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
+                  <div class="flex items-center justify-between text-xs text-gray-400">
+                    <span>\${new Date(post.created_at).toLocaleDateString('ja-JP')}</span>
+                    \${isNote ? '<span class="bg-black text-white px-2 py-0.5 rounded">note</span>' : ''}
                   </div>
-                </a>
-              </div>
+                </div>
+              </a>
             \`
           }).join('')
           
-          // Start auto-play
-          if (posts.length > 1) {
-            startSlideshow(posts.length)
-          }
-          
         } catch (error) {
-          console.error('Failed to load slideshow:', error)
+          console.error('Failed to load blog cards:', error)
         }
       }
-      
-      function goToSlide(index) {
-        const slides = document.querySelectorAll('.slide')
-        
-        slides.forEach(slide => slide.classList.remove('active'))
-        slides[index].classList.add('active')
-        
-        currentSlide = index
-        
-        // Stop auto-play when user manually selects a slide
-        stopSlideshow()
-      }
-      
-      function nextSlide() {
-        const slides = document.querySelectorAll('.slide')
-        if (slides.length === 0) return
-        currentSlide = (currentSlide + 1) % slides.length
-        goToSlide(currentSlide)
-        // Stop auto-play when user manually navigates
-        stopSlideshow()
-      }
-      
-      function previousSlide() {
-        const slides = document.querySelectorAll('.slide')
-        if (slides.length === 0) return
-        currentSlide = (currentSlide - 1 + slides.length) % slides.length
-        goToSlide(currentSlide)
-        // Stop auto-play when user manually navigates
-        stopSlideshow()
-      }
-      
-      function startSlideshow(slideCount) {
-        slideInterval = setInterval(nextSlide, 5000) // Change slide every 5 seconds
-      }
-      
-      function stopSlideshow() {
-        if (slideInterval) {
-          clearInterval(slideInterval)
-          slideInterval = null
-        }
-      }
-      
-      // Toggle all posts visibility
       
       // Secret command: Click header logo 5 times to show admin login
       // Single click: Navigate to TOP
@@ -952,7 +862,7 @@ app.get('/', (c) => {
       })
       
       document.addEventListener('DOMContentLoaded', () => {
-        loadSlideshow()
+        loadBlogCards()
       })
     </script>
 </body>
