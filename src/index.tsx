@@ -197,7 +197,7 @@ app.get('/', (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enthusiasts | 才能を覚醒させる</title>
+    <title>Enthusiasts｜出逢った人の才能の機会損失をゼロに</title>
     <meta name="description" content="出逢った人の才能の機会損失をゼロにする。才能の化学反応を起こし続けるプロジェクト。">
     
     <!-- Favicon -->
@@ -205,7 +205,7 @@ app.get('/', (c) => {
     <link rel="apple-touch-icon" href="/images/logo.png">
     
     <!-- OGP -->
-    <meta property="og:title" content="Enthusiasts | 才能を覚醒させる">
+    <meta property="og:title" content="Enthusiasts｜出逢った人の才能の機会損失をゼロに">
     <meta property="og:description" content="出逢った人の才能の機会損失をゼロにする">
     <meta property="og:image" content="https://enthusiasts.jp/images/logo-horizontal.png">
     <meta property="og:type" content="website">
