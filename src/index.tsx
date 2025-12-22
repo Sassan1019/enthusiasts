@@ -417,13 +417,8 @@ app.get('/', (c) => {
                     </button>
                     
                     <div class="slideshow-container relative">
-                        <div id="slideshow-content" class="min-h-[320px]">
+                        <div id="slideshow-content" class="h-[280px] md:h-[240px]">
                             <!-- Slides will be loaded here -->
-                        </div>
-                        
-                        <!-- Dots Navigation -->
-                        <div id="slideshow-dots" class="flex justify-center gap-3 mt-6">
-                            <!-- Dots will be loaded here -->
                         </div>
                     </div>
                     
@@ -783,7 +778,6 @@ app.get('/', (c) => {
           if (posts.length === 0) return
           
           const slideshowContent = document.getElementById('slideshow-content')
-          const slideshowDots = document.getElementById('slideshow-dots')
           
           // Create slides
           slideshowContent.innerHTML = posts.map((post, index) => {
@@ -793,9 +787,9 @@ app.get('/', (c) => {
             
             return \`
               <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
-                <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all">
-                  <div class="grid md:grid-cols-2 gap-0">
-                    <div class="h-40 md:h-52">
+                <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all h-64 md:h-80">
+                  <div class="grid md:grid-cols-2 gap-0 h-full">
+                    <div class="h-full">
                       \${post.thumbnail_url ? \`
                         <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-full object-cover">
                       \` : \`
@@ -804,10 +798,10 @@ app.get('/', (c) => {
                         </div>
                       \`}
                     </div>
-                    <div class="p-4 md:p-5 flex flex-col justify-center">
-                      \${isNote ? '<span class="inline-block bg-orange-50 text-orange-600 text-xs px-2 py-0.5 rounded mb-2 w-fit">note</span>' : ''}
-                      <h3 class="text-sm md:text-base font-semibold mb-2 leading-snug text-gray-900">\${post.title}</h3>
-                      <p class="text-gray-600 mb-2 text-xs leading-relaxed line-clamp-2">\${post.excerpt || ''}</p>
+                    <div class="p-4 md:p-5 flex flex-col justify-center h-full overflow-hidden">
+                      \${isNote ? '<span class="inline-block bg-black text-white text-xs px-2 py-0.5 rounded mb-2 w-fit">note</span>' : ''}
+                      <h3 class="text-sm md:text-base font-semibold mb-2 leading-snug text-gray-900 line-clamp-2">\${post.title}</h3>
+                      <p class="text-gray-600 mb-2 text-xs leading-relaxed line-clamp-3">\${post.excerpt || ''}</p>
                       <p class="text-xs text-gray-400 mb-2">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
                       <span class="text-gray-600 text-xs inline-flex items-center gap-1">
                         続きを読む →
@@ -818,11 +812,6 @@ app.get('/', (c) => {
               </div>
             \`
           }).join('')
-          
-          // Create dots
-          slideshowDots.innerHTML = posts.map((_, index) => \`
-            <button class="slide-dot w-3 h-3 rounded-full \${index === 0 ? 'active' : ''}" data-dot="\${index}" onclick="goToSlide(\${index})" aria-label="スライド\${index + 1}"></button>
-          \`).join('')
           
           // Start auto-play
           if (posts.length > 1) {
@@ -836,13 +825,9 @@ app.get('/', (c) => {
       
       function goToSlide(index) {
         const slides = document.querySelectorAll('.slide')
-        const dots = document.querySelectorAll('.slide-dot')
         
         slides.forEach(slide => slide.classList.remove('active'))
-        dots.forEach(dot => dot.classList.remove('active'))
-        
         slides[index].classList.add('active')
-        dots[index].classList.add('active')
         
         currentSlide = index
         
