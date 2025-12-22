@@ -289,7 +289,7 @@ app.get('/', (c) => {
     </header>
     
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center hero-bg py-20 md:py-32">
+    <section class="relative min-h-[70vh] md:min-h-screen flex items-center justify-center hero-bg py-16 md:py-32">
         <div class="hero-gradient absolute inset-0"></div>
         <div class="relative z-10 text-center text-white px-4 md:px-6 max-w-6xl fade-in">
             <!-- 大胆な英語タイポグラフィ -->
@@ -320,7 +320,7 @@ app.get('/', (c) => {
     </section>
 
     <!-- Philosophy Section -->
-    <section id="philosophy" class="py-16 md:py-32 px-4 md:px-6 bg-white">
+    <section id="philosophy" class="py-10 md:py-32 px-4 md:px-6 bg-white">
         <div class="max-w-5xl mx-auto">
             <div class="text-center mb-12 md:mb-20">
                 <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">PHILOSOPHY</h2>
@@ -353,7 +353,7 @@ app.get('/', (c) => {
     </section>
 
     <!-- What We Do Section -->
-    <section id="what-we-do" class="py-16 md:py-32 px-4 md:px-6 bg-gray-50">
+    <section id="what-we-do" class="py-10 md:py-32 px-4 md:px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12 md:mb-20">
                 <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">WHAT WE DO</h2>
@@ -395,7 +395,7 @@ app.get('/', (c) => {
     </section>
 
     <!-- Blog Section -->
-    <section id="blog" class="py-16 md:py-20 px-4 md:px-6 bg-white">
+    <section id="blog" class="py-10 md:py-20 px-4 md:px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16">
                 <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">BLOG</h2>
@@ -422,7 +422,7 @@ app.get('/', (c) => {
     </section>
 
     <!-- Member Section -->
-    <section id="member" class="py-16 md:py-32 px-4 md:px-6 bg-gray-50">
+    <section id="member" class="py-10 md:py-32 px-4 md:px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12 md:mb-16">
                 <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">MEMBER</h2>
@@ -529,7 +529,7 @@ app.get('/', (c) => {
     </section>
 
     <!-- Our Work Section -->
-    <section id="our-work" class="py-16 md:py-32 px-4 md:px-6 bg-white">
+    <section id="our-work" class="py-10 md:py-32 px-4 md:px-6 bg-white">
         <div class="max-w-6xl mx-auto">
             <div class="text-center mb-12 md:mb-20">
                 <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">OUR WORK</h2>
@@ -573,23 +573,23 @@ app.get('/', (c) => {
     </section>
 
     <!-- CTA Banner Section -->
-    <section class="py-16 px-6 bg-gray-50">
+    <section class="py-10 md:py-16 px-6 bg-gray-50">
         <div class="max-w-6xl mx-auto">
             <div class="grid md:grid-cols-2 gap-8">
                 <!-- Join Us -->
                 <a href="/contact" class="block group">
-                    <div class="bg-black text-white p-12 rounded-lg transition-transform hover:-translate-y-2">
-                        <h3 class="text-3xl font-bold mb-4">JOIN US</h3>
-                        <p class="text-lg mb-6">才能を覚醒させる<br>旅に参加しませんか?</p>
+                    <div class="bg-black text-white p-8 md:p-12 rounded-lg transition-transform hover:-translate-y-2">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">JOIN US</h3>
+                        <p class="text-base md:text-lg mb-4 md:mb-6">才能を覚醒させる<br>旅に参加しませんか?</p>
                         <span class="text-sm font-bold tracking-widest group-hover:underline">CONTACT →</span>
                     </div>
                 </a>
                 
                 <!-- Contact -->
                 <a href="#blog" class="block group">
-                    <div class="bg-white border-2 border-black p-12 rounded-lg transition-transform hover:-translate-y-2">
-                        <h3 class="text-3xl font-bold mb-4">BLOG</h3>
-                        <p class="text-lg mb-6">私たちの活動や<br>想いを発信しています</p>
+                    <div class="bg-white border-2 border-black p-8 md:p-12 rounded-lg transition-transform hover:-translate-y-2">
+                        <h3 class="text-2xl md:text-3xl font-bold mb-3 md:mb-4">BLOG</h3>
+                        <p class="text-base md:text-lg mb-4 md:mb-6">私たちの活動や<br>想いを発信しています</p>
                         <span class="text-sm font-bold tracking-widest group-hover:underline">READ MORE →</span>
                     </div>
                 </a>
@@ -598,10 +598,10 @@ app.get('/', (c) => {
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 px-6 bg-black text-white">
+    <footer class="py-10 md:py-16 px-6 bg-black text-white">
         <div class="max-w-6xl mx-auto">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <nav class="flex space-x-8 mb-6 md:mb-0">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8">
+                <nav class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4 md:mb-0">
                     <a href="#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
                     <a href="#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
                     <a href="#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
