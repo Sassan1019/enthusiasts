@@ -398,8 +398,8 @@ app.get('/', (c) => {
     <section id="blog" class="py-16 md:py-20 px-4 md:px-6 bg-white">
         <div class="max-w-7xl mx-auto">
             <div class="text-center mb-12 md:mb-16">
-                <h2 class="text-3xl sm:text-4xl md:text-5xl font-bold mb-2 tracking-tight text-gray-800">BLOG</h2>
-                <p class="text-sm md:text-base text-gray-500">ブログ</p>
+                <h2 class="text-4xl sm:text-5xl md:text-7xl font-bold mb-4 md:mb-6 tracking-tight">BLOG</h2>
+                <p class="text-lg sm:text-xl md:text-2xl text-gray-600">ブログ</p>
             </div>
             
             <!-- note-style article cards -->
