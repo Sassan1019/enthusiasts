@@ -265,11 +265,12 @@ app.get('/', (c) => {
       }
       .slide-dot {
         cursor: pointer;
-        transition: all 0.2s ease;
+        transition: all 0.3s ease;
+        background-color: #d1d5db;
       }
       .slide-dot.active {
-        background-color: #4b5563;
-        transform: scale(1.3);
+        background-color: #000000;
+        transform: scale(1.4);
       }
     </style>
 </head>
@@ -399,59 +400,45 @@ app.get('/', (c) => {
 
     <!-- Blog Section -->
     <section id="blog" class="py-20 px-6 bg-white">
-        <div class="max-w-6xl mx-auto">
-            <div class="text-center mb-12">
+        <div class="max-w-7xl mx-auto">
+            <div class="text-center mb-16">
                 <h2 class="text-2xl md:text-3xl font-bold mb-2 tracking-tight text-gray-800">BLOG</h2>
                 <p class="text-sm md:text-base text-gray-500">ブログ</p>
             </div>
             
-            <!-- Slideshow -->
-            <div class="mb-12">
-                <div class="max-w-4xl mx-auto relative">
-                    <!-- Previous Button (in left margin) -->
-                    <button onclick="previousSlide()" class="hidden md:flex absolute -left-16 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all items-center justify-center" aria-label="前のスライド">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <!-- Slideshow with generous margins -->
+            <div class="mb-16">
+                <div class="max-w-4xl mx-auto px-16 md:px-24 relative">
+                    <!-- Previous Button (in generous left margin) -->
+                    <button onclick="previousSlide()" class="absolute left-0 top-1/2 -translate-y-1/2 z-10 bg-black hover:bg-gray-800 text-white rounded-full p-3 shadow-lg transition-all flex items-center justify-center" aria-label="前のスライド">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
                         </svg>
                     </button>
                     
                     <div class="slideshow-container relative">
-                        <div id="slideshow-content" class="min-h-[300px]">
+                        <div id="slideshow-content" class="min-h-[320px]">
                             <!-- Slides will be loaded here -->
                         </div>
                         
                         <!-- Dots Navigation -->
-                        <div id="slideshow-dots" class="flex justify-center gap-2 mt-4">
+                        <div id="slideshow-dots" class="flex justify-center gap-3 mt-6">
                             <!-- Dots will be loaded here -->
                         </div>
                     </div>
                     
-                    <!-- Next Button (in right margin) -->
-                    <button onclick="nextSlide()" class="hidden md:flex absolute -right-16 top-1/2 -translate-y-1/2 z-10 bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all items-center justify-center" aria-label="次のスライド">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <!-- Next Button (in generous right margin) -->
+                    <button onclick="nextSlide()" class="absolute right-0 top-1/2 -translate-y-1/2 z-10 bg-black hover:bg-gray-800 text-white rounded-full p-3 shadow-lg transition-all flex items-center justify-center" aria-label="次のスライド">
+                        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
                         </svg>
                     </button>
-                    
-                    <!-- Mobile Navigation Buttons -->
-                    <div class="flex md:hidden justify-center gap-4 mt-4">
-                        <button onclick="previousSlide()" class="bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="前のスライド">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
-                            </svg>
-                        </button>
-                        <button onclick="nextSlide()" class="bg-white/80 hover:bg-white/90 text-gray-600 rounded-full p-2 shadow transition-all" aria-label="次のスライド">
-                            <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
-                            </svg>
-                        </button>
-                    </div>
                 </div>
             </div>
             
             <!-- Read More on note.com Button -->
             <div class="text-center mb-8">
-                <a href="https://note.com/sasaki1019/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all">
+                <a href="https://note.com/sasaki1019/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-8 py-3 bg-black hover:bg-gray-800 text-white rounded transition-all font-medium">
                     <span>他の記事を読む</span>
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -834,7 +821,7 @@ app.get('/', (c) => {
           
           // Create dots
           slideshowDots.innerHTML = posts.map((_, index) => \`
-            <button class="slide-dot w-2 h-2 rounded-full bg-gray-300 \${index === 0 ? 'active' : ''}" data-dot="\${index}" onclick="goToSlide(\${index})" aria-label="スライド\${index + 1}"></button>
+            <button class="slide-dot w-3 h-3 rounded-full \${index === 0 ? 'active' : ''}" data-dot="\${index}" onclick="goToSlide(\${index})" aria-label="スライド\${index + 1}"></button>
           \`).join('')
           
           // Start auto-play
