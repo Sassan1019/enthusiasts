@@ -214,7 +214,20 @@ app.get('/', (c) => {
         background-image: url('/images/hero-background.jpg');
         background-size: cover;
         background-position: center;
-        background-attachment: fixed;
+        background-attachment: scroll;
+        background-repeat: no-repeat;
+        /* Improve image rendering on mobile */
+        -webkit-backface-visibility: hidden;
+        backface-visibility: hidden;
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+      }
+      
+      /* Desktop only: enable parallax effect */
+      @media (min-width: 768px) {
+        .hero-bg {
+          background-attachment: fixed;
+        }
       }
       .hero-gradient {
         background: linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.8) 100%);
