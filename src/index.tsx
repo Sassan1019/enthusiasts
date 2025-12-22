@@ -385,7 +385,7 @@ app.get('/', (c) => {
             <!-- Slideshow with generous margins -->
             <!-- note-style article cards (3 columns) -->
             <div class="max-w-6xl mx-auto px-6">
-                <div id="blog-cards" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div id="blog-cards" class="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-5">
                     <!-- Cards will be loaded here -->
                 </div>
             </div>
@@ -739,33 +739,31 @@ app.get('/', (c) => {
           
           const blogCards = document.getElementById('blog-cards')
           
-          // Create note-style cards (vertical layout)
+          // Create note-style cards (vertical layout - professional design)
           blogCards.innerHTML = posts.map(post => {
             const isNote = post.source === 'note'
             const href = isNote ? post.external_url : \`/blog/\${post.slug}\`
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
-            const displayTitle = post.title.length > 30 ? post.title.substring(0, 30) + '...' : post.title
             
             return \`
-              <a href="\${href}" \${target} class="block bg-white rounded-lg overflow-hidden border border-gray-200 hover:shadow-md transition-all group">
-                <!-- Image (16:9 aspect ratio) -->
-                <div class="relative w-full" style="padding-bottom: 56.25%;">
+              <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden hover:opacity-90 transition-opacity group">
+                <!-- Image (note.com style aspect ratio) -->
+                <div class="relative w-full bg-gray-100" style="padding-bottom: 52%;">
                   \${post.thumbnail_url ? \`
-                    <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-95 transition-opacity">
-                    \${isNote ? '<img src="/images/note-logo.png" alt="note" class="absolute bottom-2 right-2 h-5 opacity-80 bg-white/80 rounded px-1.5 py-0.5">' : ''}
+                    <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover">
                   \` : \`
-                    <div class="absolute inset-0 bg-white flex items-center justify-center p-8">
-                      <img src="/images/note-logo.png" alt="note" class="w-24 h-auto opacity-20">
+                    <div class="absolute inset-0 flex items-center justify-center">
+                      <span class="text-gray-300 text-4xl">📝</span>
                     </div>
                   \`}
                 </div>
                 
                 <!-- Content -->
-                <div class="p-4">
-                  <h3 class="font-bold text-base mb-2 text-gray-900 line-clamp-2 leading-snug group-hover:text-gray-700 transition-colors">\${displayTitle}</h3>
-                  <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
-                  <div class="flex items-center justify-between text-xs text-gray-400">
-                    <span>\${new Date(post.created_at).toLocaleDateString('ja-JP')}</span>
+                <div class="p-3">
+                  <h3 class="font-bold text-base mb-1.5 text-gray-900 line-clamp-2 leading-tight">\${post.title}</h3>
+                  <p class="text-sm text-gray-600 mb-2 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
+                  <div class="flex items-center gap-2 text-xs text-gray-500">
+                    <span>\${new Date(post.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                   </div>
                 </div>
               </a>
