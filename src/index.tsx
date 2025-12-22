@@ -787,7 +787,7 @@ app.get('/', (c) => {
             
             return \`
               <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
-                <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all h-64 md:h-80">
+                <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden border border-gray-200 hover:border-gray-300 transition-all h-56 md:h-64">
                   <div class="grid md:grid-cols-2 gap-0 h-full">
                     <div class="h-full">
                       \${post.thumbnail_url ? \`
