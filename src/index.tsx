@@ -764,8 +764,8 @@ app.get('/', (c) => {
                 <!-- Content -->
                 <div class="p-4">
                   <h3 class="font-bold text-base mb-2 text-gray-900 line-clamp-2 leading-relaxed">\${post.title}</h3>
-                  <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
-                  <div class="flex items-center gap-2 text-xs text-gray-400">
+                  <p class="text-sm text-gray-600 mb-4 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
+                  <div class="flex items-center gap-2 text-xs text-gray-400 mt-auto">
                     <span>\${new Date(post.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                   </div>
                 </div>
