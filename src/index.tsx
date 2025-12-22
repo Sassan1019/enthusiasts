@@ -569,7 +569,7 @@ app.get('/', (c) => {
             <div>
                 <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">More to Come</h3>
                 <div class="grid md:grid-cols-3 gap-6">
-                    <!-- Project 02 -->
+                    <!-- Project 02: Track & Field -->
                     <div class="group relative bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div class="relative p-8 h-64 flex flex-col justify-between">
@@ -579,12 +579,13 @@ app.get('/', (c) => {
                             </div>
                             <div>
                                 <div class="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 mb-4"></div>
-                                <p class="text-white/60 text-sm leading-relaxed">新たな才能の扉が、<br>間もなく開かれる。</p>
+                                <h4 class="text-white font-bold text-lg mb-2">陸上競技</h4>
+                                <p class="text-white/60 text-sm leading-relaxed">走ることから始まる、<br>新しい挑戦。</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Project 03 -->
+                    <!-- Project 03: Food & Healthcare -->
                     <div class="group relative bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-br from-green-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div class="relative p-8 h-64 flex flex-col justify-between">
@@ -594,12 +595,13 @@ app.get('/', (c) => {
                             </div>
                             <div>
                                 <div class="h-1 w-16 bg-gradient-to-r from-green-500 to-teal-500 mb-4"></div>
-                                <p class="text-white/60 text-sm leading-relaxed">化学反応を起こす、<br>次なる挑戦。</p>
+                                <h4 class="text-white font-bold text-lg mb-2">食事・ヘルスケア</h4>
+                                <p class="text-white/60 text-sm leading-relaxed">健康と食から、<br>才能を支える。</p>
                             </div>
                         </div>
                     </div>
                     
-                    <!-- Project 04 -->
+                    <!-- Project 04: Subculture -->
                     <div class="group relative bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden">
                         <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
                         <div class="relative p-8 h-64 flex flex-col justify-between">
@@ -609,7 +611,8 @@ app.get('/', (c) => {
                             </div>
                             <div>
                                 <div class="h-1 w-16 bg-gradient-to-r from-red-500 to-orange-500 mb-4"></div>
-                                <p class="text-white/60 text-sm leading-relaxed">可能性は、<br>まだ始まったばかり。</p>
+                                <h4 class="text-white font-bold text-lg mb-2">サブカルチャー</h4>
+                                <p class="text-white/60 text-sm leading-relaxed">カウンターカルチャーの、<br>新しい形。</p>
                             </div>
                         </div>
                     </div>
