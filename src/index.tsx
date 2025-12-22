@@ -746,24 +746,26 @@ app.get('/', (c) => {
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
             
             return \`
-              <a href="\${href}" \${target} class="block bg-white rounded border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-sm transition-all group">
+              <a href="\${href}" \${target} class="block bg-white rounded border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-md transition-all group">
                 <!-- Image (note.com style aspect ratio) -->
                 <div class="relative w-full bg-gray-100" style="padding-bottom: 52%;">
                   \${post.thumbnail_url ? \`
                     <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover">
-                    <img src="/images/note-logo.png" alt="note" class="absolute top-2 right-2 h-4 opacity-90 bg-white/90 rounded px-1.5 py-0.5">
+                    <div class="absolute top-3 left-3 bg-white rounded shadow-sm px-2 py-1 flex items-center">
+                      <img src="/images/note-logo-black.png" alt="note" class="h-3.5">
+                    </div>
                   \` : \`
-                    <div class="absolute inset-0 flex items-center justify-center">
-                      <img src="/images/note-logo.png" alt="note" class="w-20 h-auto opacity-20">
+                    <div class="absolute inset-0 flex items-center justify-center bg-gray-50">
+                      <img src="/images/note-logo-black.png" alt="note" class="w-24 h-auto opacity-10">
                     </div>
                   \`}
                 </div>
                 
                 <!-- Content -->
-                <div class="p-3">
-                  <h3 class="font-bold text-base mb-1.5 text-gray-900 line-clamp-2 leading-tight">\${post.title}</h3>
-                  <p class="text-sm text-gray-600 mb-2 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
-                  <div class="flex items-center gap-2 text-xs text-gray-500">
+                <div class="p-4">
+                  <h3 class="font-bold text-base mb-2 text-gray-900 line-clamp-2 leading-snug">\${post.title}</h3>
+                  <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
+                  <div class="flex items-center gap-2 text-xs text-gray-400">
                     <span>\${new Date(post.created_at).toLocaleDateString('ja-JP', { year: 'numeric', month: 'numeric', day: 'numeric' })}</span>
                   </div>
                 </div>
