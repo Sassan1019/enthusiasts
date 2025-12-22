@@ -4,6 +4,7 @@ import { serveStatic } from 'hono/cloudflare-pages'
 
 type Bindings = {
   DB: D1Database;
+  ADMIN_PASSWORD_HASH?: string;
 }
 
 const app = new Hono<{ Bindings: Bindings }>()
@@ -13,107 +14,56 @@ app.use('/images/*', serveStatic({ root: './' }))
 
 app.use('/api/*', cors())
 
-// API: Get all published posts
+// API: Get latest note.com articles (fetch from RSS)
 app.get('/api/posts', async (c) => {
-  const { DB } = c.env
-  
-  const { results } = await DB.prepare(`
-    SELECT id, title, slug, excerpt, created_at, updated_at, source, external_url, thumbnail_url
-    FROM posts
-    WHERE published = 1
-    ORDER BY created_at DESC
-  `).all()
-  
-  return c.json({ posts: results })
-})
-
-// API: Sync note articles
-app.post('/api/sync-note', async (c) => {
-  const { DB } = c.env
-  
   try {
-    // Fetch RSS feed from note
+    // Fetch RSS feed from note.com
     const response = await fetch('https://note.com/sasaki1019/rss')
     const rssText = await response.text()
     
-    // Parse RSS XML (simple parsing)
+    // Parse RSS XML
     const items = rssText.match(/<item>[\s\S]*?<\/item>/g) || []
     
-    let syncedCount = 0
-    
-    for (const item of items) {
+    const posts = items.slice(0, 3).map(item => {
       // Extract data using regex
       const titleMatch = item.match(/<title>(?:<!\[CDATA\[)?(.*?)(?:\]\]>)?<\/title>/)
       const title = titleMatch ? titleMatch[1].replace(/<!\[CDATA\[|\]\]>/g, '') : 'Untitled'
       const link = item.match(/<link>(.*?)<\/link>/)?.[1] || ''
-      const description = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)?.[1] || ''
-      const thumbnail = item.match(/<media:thumbnail>(.*?)<\/media:thumbnail>/)?.[1] || ''
-      const pubDate = item.match(/<pubDate>(.*?)<\/pubDate>/)?.[1] || ''
+      const descriptionMatch = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)
+      const description = descriptionMatch ? descriptionMatch[1] : ''
       
-      // Extract slug from URL (e.g., /n/nfce73c56011a -> nfce73c56011a)
-      const slugMatch = link.match(/\/n\/([a-zA-Z0-9]+)/)
-      const slug = slugMatch ? `note-${slugMatch[1]}` : `note-${Date.now()}`
+      // Extract thumbnail if exists
+      const thumbnailMatch = item.match(/<enclosure[^>]*url="([^"]+)"/)
+      const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null
       
       // Extract plain text excerpt from description
       const excerpt = description
         .replace(/<[^>]+>/g, '') // Remove HTML tags
         .replace(/&nbsp;/g, ' ')
-        .substring(0, 200)
+        .replace(/&quot;/g, '"')
+        .replace(/&amp;/g, '&')
+        .substring(0, 150)
       
-      // Check if article already exists
-      const existing = await DB.prepare(`
-        SELECT id FROM posts WHERE slug = ?
-      `).bind(slug).first()
+      // Extract date
+      const pubDateMatch = item.match(/<pubDate>(.*?)<\/pubDate>/)
+      const pubDate = pubDateMatch ? new Date(pubDateMatch[1]).toISOString() : new Date().toISOString()
       
-      if (!existing) {
-        // Insert new article
-        await DB.prepare(`
-          INSERT INTO posts (title, slug, content, excerpt, published, source, external_url, thumbnail_url, created_at, updated_at)
-          VALUES (?, ?, ?, ?, 1, 'note', ?, ?, datetime('now'), datetime('now'))
-        `).bind(
-          title,
-          slug,
-          description,
-          excerpt,
-          link,
-          thumbnail
-        ).run()
-        
-        syncedCount++
+      return {
+        title,
+        external_url: link,
+        excerpt,
+        thumbnail_url: thumbnail,
+        source: 'note',
+        created_at: pubDate
       }
-    }
-    
-    return c.json({ 
-      success: true, 
-      message: `Synced ${syncedCount} new articles from note`,
-      total: items.length 
     })
     
+    return c.json({ posts })
+    
   } catch (error) {
-    console.error('Error syncing note:', error)
-    return c.json({ 
-      success: false, 
-      error: 'Failed to sync note articles' 
-    }, 500)
+    console.error('Failed to fetch note.com RSS:', error)
+    return c.json({ posts: [] })
   }
-})
-
-// API: Get single post by slug
-app.get('/api/posts/:slug', async (c) => {
-  const { DB } = c.env
-  const slug = c.req.param('slug')
-  
-  const result = await DB.prepare(`
-    SELECT id, title, slug, content, excerpt, created_at, updated_at
-    FROM posts
-    WHERE slug = ? AND published = 1
-  `).bind(slug).first()
-  
-  if (!result) {
-    return c.json({ error: 'Post not found' }, 404)
-  }
-  
-  return c.json({ post: result })
 })
 
 // API: Submit contact form
@@ -499,25 +449,14 @@ app.get('/', (c) => {
                 </div>
             </div>
             
-            <!-- Show More Button -->
+            <!-- Read More on note.com Button -->
             <div class="text-center mb-8">
-                <button id="show-more-btn" onclick="toggleAllPosts()" class="inline-flex items-center gap-2 px-6 py-3 bg-gray-900 hover:bg-gray-800 text-white rounded transition-all">
-                    <span id="show-more-text">もっと見る</span>
-                    <svg id="show-more-icon" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                <a href="https://note.com/sasaki1019/" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-2 px-6 py-3 bg-orange-500 hover:bg-orange-600 text-white rounded transition-all">
+                    <span>他の記事を読む</span>
+                    <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
                     </svg>
-                </button>
-            </div>
-            
-            <!-- All Blog Posts (Hidden by default) -->
-            <div id="all-posts-section" class="hidden">
-                <div class="mb-6">
-                    <h3 class="text-lg md:text-xl font-semibold mb-4 text-gray-700">すべての記事</h3>
-                </div>
-                
-                <div id="blog-posts" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    <!-- Blog posts will be loaded here -->
-                </div>
+                </a>
             </div>
         </div>
     </section>
@@ -844,43 +783,8 @@ app.get('/', (c) => {
       });
     
       // Load blog posts
-      async function loadBlogPosts() {
-        try {
-          const response = await axios.get('/api/posts')
-          const posts = response.data.posts
-          
-          const blogContainer = document.getElementById('blog-posts')
-          
-          if (posts.length === 0) {
-            blogContainer.innerHTML = '<p class="text-gray-500 col-span-full text-center">まだ記事がありません</p>'
-            return
-          }
-          
-          blogContainer.innerHTML = posts.map(post => {
-            const isNote = post.source === 'note'
-            const href = isNote ? post.external_url : \`/blog/\${post.slug}\`
-            const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
-            
-            return \`
-              <a href="\${href}" \${target} class="block bg-white overflow-hidden border border-gray-200 hover:border-gray-300 transition-all rounded">
-                \${post.thumbnail_url ? \`
-                  <img src="\${post.thumbnail_url}" alt="\${post.title}" class="w-full h-44 object-cover">
-                \` : ''}
-                <div class="p-5">
-                  \${isNote ? '<span class="inline-block bg-orange-50 text-orange-600 text-xs px-2 py-0.5 rounded mb-2">note</span>' : ''}
-                  <h3 class="text-base font-semibold mb-2 text-gray-900">\${post.title}</h3>
-                  <p class="text-gray-600 mb-3 text-sm line-clamp-2">\${post.excerpt || ''}</p>
-                  <p class="text-xs text-gray-400">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
-                </div>
-              </a>
-            \`
-          }).join('')
-        } catch (error) {
-          console.error('Failed to load blog posts:', error)
-        }
-      }
       
-      // Load slideshow
+      // Secret command: Click header logo 5 times to show admin login
       let currentSlide = 0
       let slideInterval
       
@@ -989,21 +893,6 @@ app.get('/', (c) => {
       }
       
       // Toggle all posts visibility
-      function toggleAllPosts() {
-        const section = document.getElementById('all-posts-section')
-        const text = document.getElementById('show-more-text')
-        const icon = document.getElementById('show-more-icon')
-        
-        if (section.classList.contains('hidden')) {
-          section.classList.remove('hidden')
-          text.textContent = '閉じる'
-          icon.style.transform = 'rotate(180deg)'
-        } else {
-          section.classList.add('hidden')
-          text.textContent = 'もっと見る'
-          icon.style.transform = 'rotate(0deg)'
-        }
-      }
       
       // Secret command: Click header logo 5 times to show admin login
       // Single click: Navigate to TOP
@@ -1091,7 +980,6 @@ app.get('/', (c) => {
       
       document.addEventListener('DOMContentLoaded', () => {
         loadSlideshow()
-        loadBlogPosts()
       })
     </script>
 </body>
@@ -1597,108 +1485,6 @@ app.get('/admin/contacts', (c) => {
       .status-read { background-color: #dbeafe; color: #1e40af; }
       .status-replied { background-color: #d1fae5; color: #065f46; }
     </style>
-</body>
-</html>
-  `)
-})
-
-// Blog post detail page
-app.get('/blog/:slug', async (c) => {
-  const slug = c.req.param('slug')
-  
-  return c.html(`
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>記事を読み込み中...</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <style>
-      body {
-        font-family: 'Noto Sans JP', sans-serif;
-      }
-      h1, h2, h3, h4, h5, h6 {
-        font-family: 'Montserrat', 'Noto Sans JP', sans-serif;
-      }
-      .prose {
-        max-width: 65ch;
-      }
-      .prose h1 { font-size: 2.5em; font-weight: 700; margin: 1em 0 0.5em; }
-      .prose h2 { font-size: 2em; font-weight: 600; margin: 1.5em 0 0.5em; }
-      .prose h3 { font-size: 1.5em; font-weight: 600; margin: 1.5em 0 0.5em; }
-      .prose p { margin: 1em 0; line-height: 1.8; }
-      .prose a { color: #3b82f6; text-decoration: underline; }
-    </style>
-</head>
-<body class="bg-white text-gray-900">
-    
-    <header class="py-4 px-6 border-b bg-white">
-        <div class="max-w-4xl mx-auto flex items-center justify-between">
-            <a href="/" class="flex items-center">
-                <img src="/images/logo-header.png" alt="Enthusiasts" class="h-10 md:h-12 w-auto">
-            </a>
-            <a href="/" class="text-sm text-gray-600 hover:text-gray-900">← ホームに戻る</a>
-        </div>
-    </header>
-
-    <article class="py-16 px-6">
-        <div id="article-content" class="max-w-4xl mx-auto prose">
-            <p class="text-gray-500">読み込み中...</p>
-        </div>
-    </article>
-
-    <footer class="py-16 px-6 bg-black text-white mt-32">
-        <div class="max-w-6xl mx-auto">
-
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <nav class="flex space-x-8 mb-6 md:mb-0">
-                    <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
-                    <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
-                    <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
-                    <a href="/#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
-                </nav>
-            </div>
-            <div class="border-t border-gray-800 pt-8 text-center">
-                <p class="text-lg font-light mb-4">出逢った人の才能の機会損失をゼロに</p>
-                <p class="text-sm text-gray-400 mb-2">
-                    <a href="/privacy" class="hover:text-white transition-colors">プライバシーポリシー</a>
-                </p>
-                <p class="text-sm text-gray-400">&copy; 2025 Enthusiasts. All rights reserved.</p>
-            </div>
-        </div>
-    </footer>
-
-    <script src="https://cdn.jsdelivr.net/npm/axios@1.6.0/dist/axios.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/marked@11.0.0/marked.min.js"></script>
-    <script>
-      async function loadPost() {
-        try {
-          const response = await axios.get('/api/posts/${slug}')
-          const post = response.data.post
-          
-          document.title = post.title + ' | 才能を覚醒させる'
-          
-          const content = marked.parse(post.content)
-          
-          document.getElementById('article-content').innerHTML = \`
-            <h1>\${post.title}</h1>
-            <p class="text-sm text-gray-500 mb-8">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
-            <div>\${content}</div>
-          \`
-        } catch (error) {
-          console.error('Failed to load post:', error)
-          document.getElementById('article-content').innerHTML = \`
-            <p class="text-red-500">記事の読み込みに失敗しました</p>
-          \`
-        }
-      }
-      
-      document.addEventListener('DOMContentLoaded', loadPost)
-    </script>
 </body>
 </html>
   `)
