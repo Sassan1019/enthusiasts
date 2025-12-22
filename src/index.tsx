@@ -1064,13 +1064,13 @@ app.get('/contact', (c) => {
     </section>
 
     <!-- Footer -->
-    <footer class="py-16 px-6 bg-black text-white mt-32">
+    <footer class="py-10 md:py-16 px-6 bg-black text-white mt-32">
         <div class="max-w-6xl mx-auto">
-
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <nav class="flex space-x-8 mb-6 md:mb-0">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8">
+                <nav class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4 md:mb-0">
                     <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
                     <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="/#our-work" class="text-gray-400 hover:text-white transition-colors">Our Work</a>
                     <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
                     <a href="/#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
                     <a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
@@ -1216,13 +1216,13 @@ app.get('/privacy', (c) => {
     </article>
 
     <!-- Footer -->
-    <footer class="py-16 px-6 bg-black text-white mt-32">
+    <footer class="py-10 md:py-16 px-6 bg-black text-white mt-32">
         <div class="max-w-6xl mx-auto">
-
-            <div class="flex flex-col md:flex-row justify-between items-center mb-8">
-                <nav class="flex space-x-8 mb-6 md:mb-0">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-6 md:mb-8">
+                <nav class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4 md:mb-0">
                     <a href="/#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
                     <a href="/#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="/#our-work" class="text-gray-400 hover:text-white transition-colors">Our Work</a>
                     <a href="/#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
                     <a href="/#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
                     <a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
