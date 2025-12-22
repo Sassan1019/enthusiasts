@@ -754,6 +754,9 @@ app.get('/', (c) => {
                     <div class="absolute top-3 left-3 bg-white rounded shadow-sm px-2 py-1 flex items-center">
                       <img src="/images/note-logo-black.png" alt="note" class="h-3.5">
                     </div>
+                    <div class="absolute bottom-3 right-3">
+                      <img src="/images/note-logo-black.png" alt="note" class="h-6 opacity-90 drop-shadow-lg">
+                    </div>
                   \` : \`
                     <div class="absolute inset-0 flex items-center justify-center bg-gray-50">
                       <img src="/images/note-logo-black.png" alt="note" class="w-24 h-auto opacity-10">
