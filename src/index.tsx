@@ -567,22 +567,51 @@ app.get('/', (c) => {
             
             <!-- Coming Soon Projects -->
             <div>
-                <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12">Coming Soon</h3>
-                <div class="grid md:grid-cols-2 gap-6">
-                    <!-- Coming Soon Card 1 -->
-                    <div class="bg-gray-50 rounded-lg p-8 border-2 border-dashed border-gray-300 text-center">
-                        <div class="text-4xl mb-4">🚀</div>
-                        <div class="inline-block bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full mb-3">COMING SOON</div>
-                        <h4 class="text-xl font-bold mb-3 text-gray-900">新プロジェクト準備中</h4>
-                        <p class="text-gray-600 text-sm">才能の化学反応を加速させる、新しい挑戦が始まります。</p>
+                <h3 class="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-gray-800">More to Come</h3>
+                <div class="grid md:grid-cols-3 gap-6">
+                    <!-- Project 02 -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-blue-600/10 to-purple-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative p-8 h-64 flex flex-col justify-between">
+                            <div>
+                                <div class="text-6xl font-bold text-white/10 mb-4">02</div>
+                                <div class="inline-block bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded mb-4">COMING SOON</div>
+                            </div>
+                            <div>
+                                <div class="h-1 w-16 bg-gradient-to-r from-blue-500 to-purple-500 mb-4"></div>
+                                <p class="text-white/60 text-sm leading-relaxed">新たな才能の扉が、<br>間もなく開かれる。</p>
+                            </div>
+                        </div>
                     </div>
                     
-                    <!-- Coming Soon Card 2 -->
-                    <div class="bg-gray-50 rounded-lg p-8 border-2 border-dashed border-gray-300 text-center">
-                        <div class="text-4xl mb-4">✨</div>
-                        <div class="inline-block bg-gray-200 text-gray-600 text-xs font-bold px-3 py-1 rounded-full mb-3">COMING SOON</div>
-                        <h4 class="text-xl font-bold mb-3 text-gray-900">さらなる企画を構想中</h4>
-                        <p class="text-gray-600 text-sm">あなたの才能を覚醒させる、新しい機会をお楽しみに。</p>
+                    <!-- Project 03 -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-green-600/10 to-teal-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative p-8 h-64 flex flex-col justify-between">
+                            <div>
+                                <div class="text-6xl font-bold text-white/10 mb-4">03</div>
+                                <div class="inline-block bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded mb-4">COMING SOON</div>
+                            </div>
+                            <div>
+                                <div class="h-1 w-16 bg-gradient-to-r from-green-500 to-teal-500 mb-4"></div>
+                                <p class="text-white/60 text-sm leading-relaxed">化学反応を起こす、<br>次なる挑戦。</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Project 04 -->
+                    <div class="group relative bg-gradient-to-br from-gray-900 to-black rounded-lg overflow-hidden">
+                        <div class="absolute inset-0 bg-gradient-to-br from-red-600/10 to-orange-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                        <div class="relative p-8 h-64 flex flex-col justify-between">
+                            <div>
+                                <div class="text-6xl font-bold text-white/10 mb-4">04</div>
+                                <div class="inline-block bg-white/10 backdrop-blur-sm text-white text-xs font-bold px-3 py-1 rounded mb-4">COMING SOON</div>
+                            </div>
+                            <div>
+                                <div class="h-1 w-16 bg-gradient-to-r from-red-500 to-orange-500 mb-4"></div>
+                                <p class="text-white/60 text-sm leading-relaxed">可能性は、<br>まだ始まったばかり。</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
