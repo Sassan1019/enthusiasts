@@ -752,6 +752,7 @@ app.get('/', (c) => {
                 <div class="relative w-full" style="padding-bottom: 56.25%;">
                   \${post.thumbnail_url ? \`
                     <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover group-hover:opacity-95 transition-opacity">
+                    \${isNote ? '<img src="/images/note-logo.png" alt="note" class="absolute bottom-2 right-2 h-5 opacity-80 bg-white/80 rounded px-1.5 py-0.5">' : ''}
                   \` : \`
                     <div class="absolute inset-0 bg-white flex items-center justify-center p-8">
                       <img src="/images/note-logo.png" alt="note" class="w-24 h-auto opacity-20">
@@ -765,7 +766,6 @@ app.get('/', (c) => {
                   <p class="text-sm text-gray-600 mb-3 line-clamp-2 leading-relaxed">\${post.excerpt || ''}</p>
                   <div class="flex items-center justify-between text-xs text-gray-400">
                     <span>\${new Date(post.created_at).toLocaleDateString('ja-JP')}</span>
-                    \${isNote ? '<img src="/images/note-logo.png" alt="note" class="h-3 opacity-60">' : ''}
                   </div>
                 </div>
               </a>
