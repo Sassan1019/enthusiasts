@@ -197,8 +197,20 @@ app.get('/', (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>才能を覚醒させる | 才能の機会損失をゼロに</title>
+    <title>Enthusiasts | 才能を覚醒させる</title>
     <meta name="description" content="出逢った人の才能の機会損失をゼロにする。才能の化学反応を起こし続けるプロジェクト。">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    
+    <!-- OGP -->
+    <meta property="og:title" content="Enthusiasts | 才能を覚醒させる">
+    <meta property="og:description" content="出逢った人の才能の機会損失をゼロにする">
+    <meta property="og:image" content="https://enthusiasts.jp/images/logo-horizontal.png">
+    <meta property="og:type" content="website">
+    <meta name="twitter:card" content="summary_large_image">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -276,6 +288,7 @@ app.get('/', (c) => {
             <nav class="hidden md:flex space-x-8">
                 <a href="#philosophy" class="text-gray-700 hover:text-black transition-colors">Philosophy</a>
                 <a href="#what-we-do" class="text-gray-700 hover:text-black transition-colors">What We Do</a>
+                <a href="#our-work" class="text-gray-700 hover:text-black transition-colors">Our Work</a>
                 <a href="#member" class="text-gray-700 hover:text-black transition-colors">Member</a>
                 <a href="#blog" class="text-gray-700 hover:text-black transition-colors">Blog</a>
                 <a href="/contact" class="text-gray-700 hover:text-black transition-colors">Contact</a>
@@ -294,6 +307,7 @@ app.get('/', (c) => {
             <div class="px-6 py-4 space-y-3">
                 <a href="#philosophy" class="block text-gray-700 hover:text-black transition-colors py-2">Philosophy</a>
                 <a href="#what-we-do" class="block text-gray-700 hover:text-black transition-colors py-2">What We Do</a>
+                <a href="#our-work" class="block text-gray-700 hover:text-black transition-colors py-2">Our Work</a>
                 <a href="#member" class="block text-gray-700 hover:text-black transition-colors py-2">Member</a>
                 <a href="#blog" class="block text-gray-700 hover:text-black transition-colors py-2">Blog</a>
                 <a href="/contact" class="block text-gray-700 hover:text-black transition-colors py-2">Contact</a>
@@ -617,6 +631,7 @@ app.get('/', (c) => {
                 <nav class="flex flex-wrap justify-center gap-4 md:gap-8 mb-4 md:mb-0">
                     <a href="#philosophy" class="text-gray-400 hover:text-white transition-colors">Philosophy</a>
                     <a href="#what-we-do" class="text-gray-400 hover:text-white transition-colors">What We Do</a>
+                    <a href="#our-work" class="text-gray-400 hover:text-white transition-colors">Our Work</a>
                     <a href="#member" class="text-gray-400 hover:text-white transition-colors">Member</a>
                     <a href="#blog" class="text-gray-400 hover:text-white transition-colors">Blog</a>
                     <a href="/contact" class="text-gray-400 hover:text-white transition-colors">Contact</a>
@@ -955,8 +970,13 @@ app.get('/contact', (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お問い合わせ | 才能を覚醒させる</title>
-    <meta name="description" content="お問い合わせフォーム - 才能を覚醒させる">
+    <title>お問い合わせ | Enthusiasts</title>
+    <meta name="description" content="お問い合わせフォーム - Enthusiasts">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1120,7 +1140,12 @@ app.get('/privacy', (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プライバシーポリシー | 才能を覚醒させる</title>
+    <title>プライバシーポリシー | Enthusiasts</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1225,7 +1250,12 @@ app.get('/admin/contacts', (c) => {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>お問い合わせ管理 | Admin</title>
+    <title>管理画面 | Enthusiasts</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/images/logo.png">
+    <link rel="apple-touch-icon" href="/images/logo.png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;600;700&family=Noto+Sans+JP:wght@300;400;500;700&display=swap" rel="stylesheet">
     <style>
