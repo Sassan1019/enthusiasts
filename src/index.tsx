@@ -32,9 +32,10 @@ app.get('/api/posts', async (c) => {
       const descriptionMatch = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)
       const description = descriptionMatch ? descriptionMatch[1] : ''
       
-      // Extract thumbnail if exists
-      const thumbnailMatch = item.match(/<enclosure[^>]*url="([^"]+)"/)
-      const thumbnail = thumbnailMatch ? thumbnailMatch[1] : null
+      // Extract thumbnail from enclosure or media:thumbnail
+      const enclosureMatch = item.match(/<enclosure[^>]*url="([^"]+)"/)
+      const mediaThumbnailMatch = item.match(/<media:thumbnail[^>]*url="([^"]+)"/)
+      const thumbnail = enclosureMatch?.[1] || mediaThumbnailMatch?.[1] || null
       
       // Extract plain text excerpt from description
       const excerpt = description
@@ -784,6 +785,7 @@ app.get('/', (c) => {
             const isNote = post.source === 'note'
             const href = isNote ? post.external_url : \`/blog/\${post.slug}\`
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
+            const displayTitle = post.title.length > 12 ? post.title.substring(0, 12) + '...' : post.title
             
             return \`
               <div class="slide \${index === 0 ? 'active' : ''}" data-slide="\${index}">
@@ -800,7 +802,7 @@ app.get('/', (c) => {
                     </div>
                     <div class="p-4 md:p-5 flex flex-col justify-center h-full overflow-hidden">
                       \${isNote ? '<span class="inline-block bg-black text-white text-xs px-2 py-0.5 rounded mb-2 w-fit">note</span>' : ''}
-                      <h3 class="text-sm md:text-base font-semibold mb-2 leading-snug text-gray-900 line-clamp-2">\${post.title}</h3>
+                      <h3 class="text-sm md:text-base font-semibold mb-2 leading-snug text-gray-900">\${displayTitle}</h3>
                       <p class="text-gray-600 mb-2 text-xs leading-relaxed line-clamp-3">\${post.excerpt || ''}</p>
                       <p class="text-xs text-gray-400 mb-2">\${new Date(post.created_at).toLocaleDateString('ja-JP')}</p>
                       <span class="text-gray-600 text-xs inline-flex items-center gap-1">
