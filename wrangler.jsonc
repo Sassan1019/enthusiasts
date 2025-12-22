@@ -5,5 +5,12 @@
   "pages_build_output_dir": "./dist",
   "compatibility_flags": [
     "nodejs_compat"
+  ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "enthusiasts-production",
+      "database_id": "a4876dc1-a718-4972-9f2e-18d17fe1e481"
+    }
   ]
 }
