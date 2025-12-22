@@ -32,10 +32,9 @@ app.get('/api/posts', async (c) => {
       const descriptionMatch = item.match(/<description><!\[CDATA\[([\s\S]*?)\]\]><\/description>/)
       const description = descriptionMatch ? descriptionMatch[1] : ''
       
-      // Extract thumbnail from enclosure or media:thumbnail
-      const enclosureMatch = item.match(/<enclosure[^>]*url="([^"]+)"/)
-      const mediaThumbnailMatch = item.match(/<media:thumbnail[^>]*url="([^"]+)"/)
-      const thumbnail = enclosureMatch?.[1] || mediaThumbnailMatch?.[1] || null
+      // Extract thumbnail from media:thumbnail element
+      const mediaThumbnailMatch = item.match(/<media:thumbnail>(.*?)<\/media:thumbnail>/)
+      const thumbnail = mediaThumbnailMatch?.[1] || null
       
       // Extract plain text excerpt from description
       const excerpt = description
