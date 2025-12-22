@@ -16,6 +16,7 @@
     "test": "curl http://localhost:3000"
   },
   "dependencies": {
+    "@hono/vite-cloudflare-pages": "^0.4.3",
     "hono": "^4.11.1"
   },
   "devDependencies": {
