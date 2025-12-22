@@ -746,14 +746,15 @@ app.get('/', (c) => {
             const target = isNote ? 'target="_blank" rel="noopener noreferrer"' : ''
             
             return \`
-              <a href="\${href}" \${target} class="block bg-white rounded overflow-hidden hover:opacity-90 transition-opacity group">
+              <a href="\${href}" \${target} class="block bg-white rounded border border-gray-200 overflow-hidden hover:border-gray-300 hover:shadow-sm transition-all group">
                 <!-- Image (note.com style aspect ratio) -->
                 <div class="relative w-full bg-gray-100" style="padding-bottom: 52%;">
                   \${post.thumbnail_url ? \`
                     <img src="\${post.thumbnail_url}" alt="\${post.title}" class="absolute inset-0 w-full h-full object-cover">
+                    <img src="/images/note-logo.png" alt="note" class="absolute top-2 right-2 h-4 opacity-90 bg-white/90 rounded px-1.5 py-0.5">
                   \` : \`
                     <div class="absolute inset-0 flex items-center justify-center">
-                      <span class="text-gray-300 text-4xl">📝</span>
+                      <img src="/images/note-logo.png" alt="note" class="w-20 h-auto opacity-20">
                     </div>
                   \`}
                 </div>
