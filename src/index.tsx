@@ -20,8 +20,13 @@ app.use('/api/*', cors())
 // API: Get latest note.com articles (fetch from RSS)
 app.get('/api/posts', async (c) => {
   try {
-    // Fetch RSS feed from note.com
-    const response = await fetch('https://note.com/sasaki1019/rss')
+    // Fetch RSS feed from note.com with cache-busting
+    const response = await fetch('https://note.com/sasaki1019/rss', {
+      headers: {
+        'Cache-Control': 'no-cache, no-store, must-revalidate',
+        'Pragma': 'no-cache'
+      }
+    })
     const rssText = await response.text()
     
     // Parse RSS XML
@@ -60,6 +65,11 @@ app.get('/api/posts', async (c) => {
         created_at: pubDate
       }
     })
+    
+    // Set response headers to prevent caching
+    c.header('Cache-Control', 'no-cache, no-store, must-revalidate')
+    c.header('Pragma', 'no-cache')
+    c.header('Expires', '0')
     
     return c.json({ posts })
     
