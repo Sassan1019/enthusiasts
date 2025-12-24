@@ -378,14 +378,14 @@ app.get('/', (c) => {
             <h1 class="sr-only">Enthusiasts（エンスー）｜出逢った人の才能の機会損失をゼロに - 才能を覚醒させるプロジェクト</h1>
             
             <!-- 大胆な英語タイポグラフィ -->
-            <div class="text-3xl sm:text-4xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight tracking-tight">
+            <div class="text-5xl sm:text-6xl md:text-7xl lg:text-8xl font-bold mb-8 md:mb-12 leading-tight tracking-tight">
                 A WORLD<br>
                 WHERE<br>
                 TALENT LOSS<br>
                 IS ZERO
             </div>
             
-            <div class="text-lg sm:text-xl md:text-3xl font-light mb-12 md:mb-16 tracking-wide">
+            <div class="text-xl sm:text-2xl md:text-3xl font-light mb-12 md:mb-16 tracking-wide">
                 出逢った人の才能の機会損失をゼロに
             </div>
             
