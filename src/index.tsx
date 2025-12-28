@@ -601,6 +601,12 @@ app.get('/', (c) => {
                 </div>
             </div>
             
+            <!-- Image Zoom Modal -->
+            <div id="imageModal" class="fixed inset-0 bg-black bg-opacity-95 hidden items-center justify-center z-[60] p-4" onclick="closeImageModal()">
+                <button onclick="closeImageModal()" class="absolute top-4 right-4 text-white hover:text-gray-300 text-4xl z-10">&times;</button>
+                <img id="zoomedImage" src="" alt="" class="max-w-full max-h-[95vh] w-auto h-auto object-contain">
+            </div>
+            
             <!-- Admin Login Modal -->
             <div id="adminLoginModal" class="fixed inset-0 bg-black bg-opacity-50 hidden items-center justify-center z-50 px-4">
                 <div class="bg-white rounded-lg max-w-md w-full p-8 relative">
@@ -778,8 +784,11 @@ app.get('/', (c) => {
         const modalContent = document.getElementById('modalContent');
         
         modalContent.innerHTML = \`
-          <div class="w-full bg-gray-100 flex items-center justify-center">
-            <img src="\${member.image}" alt="\${member.name}" class="w-full h-auto max-h-96 object-contain">
+          <div class="w-full bg-gray-100 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageModal('\${member.image}', '\${member.name}')">
+            <img src="\${member.image}" alt="\${member.name}" class="w-full h-auto object-contain" style="max-height: 600px;">
+            <div class="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded text-sm">
+              クリックで拡大
+            </div>
           </div>
           <div class="p-8">
             <div class="text-sm font-bold text-gray-400 mb-2 tracking-widest">\${member.role}</div>
@@ -850,10 +859,29 @@ app.get('/', (c) => {
         document.body.style.overflow = 'auto';
       }
 
+      // Open image zoom modal
+      function openImageModal(imageSrc, altText) {
+        const modal = document.getElementById('imageModal');
+        const img = document.getElementById('zoomedImage');
+        img.src = imageSrc;
+        img.alt = altText;
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        event.stopPropagation();
+      }
+
+      // Close image zoom modal
+      function closeImageModal() {
+        const modal = document.getElementById('imageModal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+      }
+
       // Close modal on Escape key
       document.addEventListener('keydown', function(event) {
         if (event.key === 'Escape') {
           closeMemberModal();
+          closeImageModal();
         }
       });
     
