@@ -516,9 +516,9 @@ app.get('/', (c) => {
             
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Member 1: 佐々木 慧 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(0)">
-                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
-                        <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-full object-contain">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg cursor-pointer" onclick="openMemberModal(0)">
+                    <div class="w-full h-64 bg-gray-100 overflow-hidden">
+                        <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">PROJECT LEADER</div>
@@ -528,9 +528,9 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- Member 2: 布野 雅也 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(1)">
-                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
-                        <img src="/images/member-1.jpg" alt="布野 雅也" class="w-full h-full object-contain">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg cursor-pointer" onclick="openMemberModal(1)">
+                    <div class="w-full h-64 bg-gray-100 overflow-hidden">
+                        <img src="/images/member-1.jpg" alt="布野 雅也" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
@@ -540,9 +540,9 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- Member 3: 黒岩 礼生 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(2)">
-                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
-                        <img src="/images/member-5.jpg" alt="黒岩 礼生" class="w-full h-full object-contain">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg cursor-pointer" onclick="openMemberModal(2)">
+                    <div class="w-full h-64 bg-gray-100 overflow-hidden">
+                        <img src="/images/member-5.jpg" alt="黒岩 礼生" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
@@ -552,9 +552,9 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- Member 4: 甘糟 里奈 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(3)">
-                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
-                        <img src="/images/member-3.jpg" alt="甘糟 里奈" class="w-full h-full object-contain">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg cursor-pointer" onclick="openMemberModal(3)">
+                    <div class="w-full h-64 bg-gray-100 overflow-hidden">
+                        <img src="/images/member-3.jpg" alt="甘糟 里奈" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
@@ -564,9 +564,9 @@ app.get('/', (c) => {
                 </div>
 
                 <!-- Member 5: 當内 脩平 -->
-                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(4)">
-                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
-                        <img src="/images/member-4.jpg" alt="當内 脩平" class="w-full h-full object-contain">
+                <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg cursor-pointer" onclick="openMemberModal(4)">
+                    <div class="w-full h-64 bg-gray-100 overflow-hidden">
+                        <img src="/images/member-4.jpg" alt="當内 脩平" class="w-full h-full object-cover">
                     </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
@@ -784,8 +784,8 @@ app.get('/', (c) => {
         const modalContent = document.getElementById('modalContent');
         
         modalContent.innerHTML = \`
-          <div class="w-full bg-gray-100 flex items-center justify-center cursor-pointer hover:opacity-90 transition-opacity" onclick="openImageModal('\${member.image}', '\${member.name}')">
-            <img src="\${member.image}" alt="\${member.name}" class="w-full h-auto object-contain" style="max-height: 600px;">
+          <div class="w-full h-80 md:h-96 bg-gray-100 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity relative" onclick="openImageModal('\${member.image}', '\${member.name}')">
+            <img src="\${member.image}" alt="\${member.name}" class="w-full h-full object-cover">
             <div class="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded text-sm">
               クリックで拡大
             </div>
