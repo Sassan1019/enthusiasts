@@ -784,11 +784,8 @@ app.get('/', (c) => {
         const modalContent = document.getElementById('modalContent');
         
         modalContent.innerHTML = \`
-          <div class="w-full h-80 md:h-96 bg-gray-100 overflow-hidden cursor-pointer hover:opacity-90 transition-opacity relative" onclick="openImageModal('\${member.image}', '\${member.name}')">
+          <div class="w-full h-64 bg-gray-100 overflow-hidden">
             <img src="\${member.image}" alt="\${member.name}" class="w-full h-full object-cover">
-            <div class="absolute top-4 left-4 bg-black bg-opacity-50 text-white px-3 py-1 rounded text-sm">
-              クリックで拡大
-            </div>
           </div>
           <div class="p-8">
             <div class="text-sm font-bold text-gray-400 mb-2 tracking-widest">\${member.role}</div>
