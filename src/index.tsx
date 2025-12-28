@@ -768,7 +768,9 @@ app.get('/', (c) => {
         const modalContent = document.getElementById('modalContent');
         
         modalContent.innerHTML = \`
-          <img src="\${member.image}" alt="\${member.name}" class="w-full h-80 object-cover">
+          <div class="w-full bg-gray-100 flex items-center justify-center">
+            <img src="\${member.image}" alt="\${member.name}" class="w-full h-auto max-h-96 object-contain">
+          </div>
           <div class="p-8">
             <div class="text-sm font-bold text-gray-400 mb-2 tracking-widest">\${member.role}</div>
             <h2 class="text-3xl md:text-4xl font-bold mb-4">\${member.name}</h2>
