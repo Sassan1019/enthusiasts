@@ -517,7 +517,9 @@ app.get('/', (c) => {
             <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
                 <!-- Member 1: 佐々木 慧 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(0)">
-                    <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-64 object-cover">
+                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-full object-contain">
+                    </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">PROJECT LEADER</div>
                         <h3 class="text-2xl font-bold mb-2">佐々木 慧</h3>
@@ -527,7 +529,9 @@ app.get('/', (c) => {
 
                 <!-- Member 2: 布野 雅也 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(1)">
-                    <img src="/images/member-1.jpg" alt="布野 雅也" class="w-full h-64 object-cover">
+                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="/images/member-1.jpg" alt="布野 雅也" class="w-full h-full object-contain">
+                    </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">布野 雅也</h3>
@@ -537,7 +541,9 @@ app.get('/', (c) => {
 
                 <!-- Member 3: 黒岩 礼生 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(2)">
-                    <img src="/images/member-5.jpg" alt="黒岩 礼生" class="w-full h-64 object-cover">
+                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="/images/member-5.jpg" alt="黒岩 礼生" class="w-full h-full object-contain">
+                    </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">CORE MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">黒岩 礼生</h3>
@@ -547,7 +553,9 @@ app.get('/', (c) => {
 
                 <!-- Member 4: 甘糟 里奈 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(3)">
-                    <img src="/images/member-3.jpg" alt="甘糟 里奈" class="w-full h-64 object-cover">
+                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="/images/member-3.jpg" alt="甘糟 里奈" class="w-full h-full object-contain">
+                    </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">甘糟 里奈</h3>
@@ -557,7 +565,9 @@ app.get('/', (c) => {
 
                 <!-- Member 5: 當内 脩平 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg" onclick="openMemberModal(4)">
-                    <img src="/images/member-4.jpg" alt="當内 脩平" class="w-full h-64 object-cover">
+                    <div class="w-full h-64 bg-gray-100 flex items-center justify-center">
+                        <img src="/images/member-4.jpg" alt="當内 脩平" class="w-full h-full object-contain">
+                    </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">MEMBER</div>
                         <h3 class="text-2xl font-bold mb-2">當内 脩平</h3>
