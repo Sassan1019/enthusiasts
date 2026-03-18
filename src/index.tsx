@@ -518,7 +518,7 @@ app.get('/', (c) => {
                 <!-- Member 1: 佐々木 慧 -->
                 <div class="member-card bg-white overflow-hidden shadow-sm rounded-lg cursor-pointer" onclick="openMemberModal(0)">
                     <div class="w-full aspect-[577/403] bg-gray-100 flex items-center justify-center overflow-hidden">
-                        <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-full object-cover">
+                        <img src="/images/member-2.jpg" alt="佐々木 慧" class="w-full h-full object-cover object-top">
                     </div>
                     <div class="p-6">
                         <div class="text-xs font-bold text-gray-400 mb-2 tracking-widest">PROJECT LEADER</div>
@@ -785,7 +785,7 @@ app.get('/', (c) => {
         
         modalContent.innerHTML = \`
           <div class="w-full aspect-[577/403] bg-gray-100 flex items-center justify-center overflow-hidden">
-            <img src="\${member.image}" alt="\${member.name}" class="w-full h-full object-cover">
+            <img src="\${member.image}" alt="\${member.name}" class="w-full h-full object-cover \${index === 0 ? 'object-top' : ''}">
           </div>
           <div class="p-8">
             <div class="text-sm font-bold text-gray-400 mb-2 tracking-widest">\${member.role}</div>
